@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8">
+		<title>2021 Presidential Election Statistics In Uganda</title>
+    	<link href="http://cdnjs.cloudflare.com/ajax/libs/skeleton/2.0.4/skeleton.min.css" rel="stylesheet" type="text/css">
+		<link href="style.css" rel="stylesheet" type="text/css" >
+	</head>
+	<body>
+		<strong><h5 style="text-align:center"> CANDIDATE PER DISTRICT PERFORMANCE IN RELATION TO VALID VOTES</h5></strong>
+		
+		<table style="border: 0px"><tr>
+			<td>
+				<div class="container2">
+					<h3 style="text-align:center">KEY:</h3>
+					<h5 style="text-align:center">Houver over map </h5>
+					<h5 style="text-align:center">=> Click </h5>
+					<h5 style="text-align:center">=> Display </h5>
+					<h5 style="text-align:center">Quantiy varies with  Intensity</h5>
+					<table><tr><td></td><td><img src="color2.PNG" width="100px" height="200px"/>
+					</td><td></td></tr></table>
+					
+				</div>
+			</td><td>
+		<div class="container">
+
+			<div id="initial">	
+			</div>
+			<div id="map"></div> <!-- Allocate container for map  --> 
+			<div id="details"></div> <!-- Allocate container for details -->
+			<div id="details2"></div> <!-- Allocate container for details -->
+			
+		</div> </td></tr></table>
+
+	    <script id="template" type="x-tmpl-mustache">
+	      <h3 >{{ District }}</h3>
+
+		<ul>
+			<li> Amuriat O.	{{ amur_pge }}</li>
+			<li> Kabuleta K. {{ kab_pge }}</li>
+			<li> Kalembe N. {{ kalem_pge }} </li>
+			<li> Katumba J. {{ katum_pge }}</li>
+			<li> Kyagulanyi S. {{ kyagu_pge }}</li>
+			<li> Mao N. {{ mao_pge }}</li>
+			<li> Mayambala W. {{ mayamb_pge }}</li>
+			<li> Mugisha M. {{ mugis_pge }}</li>
+			<li> Mwesigye F. {{ mwesig_pge }}</li>
+			<li> Tumukunde H. {{ tumuk_pge }}</li>
+			<li> Yoweri M. {{ yoweri_pge }}</li>
+	    </ul>
+		   
+	</script>
+
+	<script id="template2" type="x-tmpl-mustache">
+		<button ><h1> Score : {{ total_votes }}</h1></button>
+ 
+		<button><h1> Voters : {{ reg_voters }}</h1></button>
+
+	</script>
+
+		<!-- Tooltip -->
+		<div id="tooltip">
+		<p></p>
+		<strong><h5 class="name"></h5></strong>
+		<h3 class="value"></h3>
+		<h5 class="increment"></h5>
+		<h5>-To view Percentage-</h5>
+		<strong><h4>Click District</h4></strong>
+		<button type="submit" text="hello"> SELECT </button>
+		</div>
+
+		<!-- JS Libraries -->
+		<script src="http://d3js.org/d3.v3.min.js" charset="utf-8"></script>
+		<script src="http://cdnjs.cloudflare.com/ajax/libs/mustache.js/2.2.1/mustache.min.js"></script>
+
+		<!-- Custom JS code -->
+		<script src="map.js"></script>
+	</body>
+</html>

@@ -1,0 +1,73 @@
+body {
+	margin:25px;
+}
+
+#heading {
+	float: center;
+}
+
+#map {
+	width: 100%;
+	height: 100%;
+	border: 1px solid rgb(255, 255, 255);
+	background: #ffffff;
+	float: left;
+}
+
+#tooltip {
+	position: absolute;
+	z-index: 6;
+	background: rgba(5, 1, 41, 0.8);
+	border-radius: 40px;
+	width: 200px;
+	height: 385px;
+	color: rgb(253, 251, 251);
+	font-size: 14px;
+	padding: 15px;
+	top: -390px;
+	left: -390px;
+	font-family: "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;
+}
+
+#tooltip p {
+	margin: 0;
+}
+
+#tooltip p.value {
+	font-weight: bold;
+}
+
+#details  {
+  margin-top: 2rem;
+  position: absolute;
+  overflow: hidden;
+}
+
+#details2  {
+	margin-top: 2rem;
+	position: absolute;
+	overflow: hidden;
+  }
+
+#initial {
+	font-size: 1.2rem;
+	position: absolute;
+}
+
+.container {
+	width: 100%;
+	height: 100%;
+	margin: 0px 0px 0px 0px;
+	padding: 0px 0px 0px 0px;
+	background-color: rgb(250, 250, 250);
+
+}
+
+.container2 {
+	width: 250px;
+	height: 600px;
+	margin: 0px 0px 0px 0px;
+	padding: 0px 0px 0px 0px;
+	background-color: rgb(250, 250, 250);
+	box-shadow: 0 0 15px rgb(15, 14, 15);
+}
