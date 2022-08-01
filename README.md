@@ -9,14 +9,14 @@
 # DATA VISUALIZATION AND ANALYTICS (MCSC)
 
 # Assignment Links
-Bargraph
+Bargraph<br>
 https://andrkenya.github.io/andrew_bukenya/bargraph/
 
-Piechart
+Piechart <br>
 https://andrkenya.github.io/andrew_bukenya/piechart/
 
-Scatterplot
+Scatterplot <br>
 https://andrkenya.github.io/andrew_bukenya/scatterplot/
 
-Geospatial Map
+Geospatial Map <br>
 http://aynwerdgroup.ga/geospatial_map/
