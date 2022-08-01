@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html>
+<meta charset="utf-8">
+
+<style>
+body {
+  font: 11px sans-serif;
+  
+}
+
+/*title {
+  position: center;
+
+}*/
+
+.axis path,
+.axis line {
+  fill: none;
+  stroke: #000;
+
+}
+
+.dot {
+  stroke: rgb(7, 7, 7);
+  fill: #e0d4d4;
+}
+
+.tooltip {
+  position: absolute;
+  width: 250px;
+  height: 150px;
+  pointer-events: none;
+}
+</style>
+<body>
+
+    <h1 style="text-align:center">COMPETITIVE RATIO IN RELATION TO VALIDITY OF VOTES, 2021 UGANDA PRESIDENTIAL ELECTIONS</h1>
+      <h3 style="text-align:center"><a href=" https://www.ec.or.ug/2021-general-elections" target="_blank">Source: Electoral Commision Uganda</a></h3>
+  
+    <h3 style="text-align:center">Hover over a point to view Statistics</h3>
+
+  <!-- js-->
+<script src="https://d3js.org/d3.v3.min.js"></script>
+
+<script>
+var margin = {top: 10, right: 200, bottom: 7, left: 200},
+    width = 1300 - margin.left - margin.right,
+    height = 450 - margin.top - margin.bottom;
+
+/* 
+ * value accessor - returns the value to encode for a given data object.
+ * scale - maps value to a visual display encoding, such as a pixel position.
+ */ 
+
+// setup x 
+var xValue = function(d) { return d.valid_votes;}, // data -> value
+    xScale = d3.scale.linear().range([0, width]), // value -> display
+    xMap = function(d) { return xScale(xValue(d));}, // data -> display
+    xAxis = d3.svg.axis().scale(xScale).orient("bottom");
+
+// setup y
+var yValue = function(d) { return d["invalid_votes"];}, // data -> value
+    yScale = d3.scale.linear().range([height, 0]), // value -> display
+    yMap = function(d) { return yScale(yValue(d));}, 
+    yAxis = d3.svg.axis().scale(yScale).orient("left");
+
+// setup fill color
+var cValue = function(d) { return d.district;},
+    color = d3.scale.quantize();
+
+// add the graph canvas to the body of the webpage
+var svg = d3.select("body").append("svg")
+    .attr("width", width + margin.left + margin.right)
+    .attr("height", height + margin.top + margin.bottom)
+  .append("g")
+    .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
+
+// add the tooltip area to the webpage
+var tooltip = d3.select("body").append("div")
+    .attr("class", "tooltip")
+    .style("opacity", 0);
+
+// load data
+d3.csv("scatter_data.csv", function(error, data) {
+
+  // change string (from CSV) into number format
+  data.forEach(function(d) {
+    d.reg_voters = +d.reg_voters;
+    d["valid_votes"] = +d["valid_votes"];
+  });
+
+  //Adding buffer to data domain to avoid overlapping of points.
+  xScale.domain([d3.min(data, xValue)-1, d3.max(data, xValue)+1]);
+  yScale.domain([d3.min(data, yValue)-1, d3.max(data, yValue)+1]);
+
+  // x-axis
+  svg.append("g")
+      .attr("class", "x axis")
+      .attr("transform", "translate(0," + height + ")")
+      .call(xAxis)
+    .append("text")
+      .attr("class", "label")
+      .attr("x", width)
+      .attr("y", -6)
+      .style("text-anchor", "end")
+      .text("Valid Votes");
+
+  // y-axis
+  svg.append("g")
+      .attr("class", "y axis")
+      .call(yAxis)
+    .append("text")
+      .attr("class", "label")
+      .attr("transform", "rotate(-90)")
+      .attr("y", 6)
+      .attr("dy", ".71em")
+      .style("text-anchor", "end")
+      .text("Invalid Votes");
+
+  // draw dots
+  svg.selectAll(".dot")
+      .data(data)
+    .enter().append("circle")
+      .attr("class", "dot")
+      .attr("r", 3.5)
+      .attr("cx", xMap)
+      .attr("cy", yMap)
+      .style("fill", function(d) { return color(cValue(d));}) 
+      .on("mouseover", function(d) {
+          tooltip.transition()
+               .duration(200)
+               .style("opacity", 1);
+          tooltip.html(d["district"] + "<br/>"+"<br/>" + xValue(d) 
+	        + ", " + yValue(d)  +"<br/>"+"<br/>"+ "  Percentage total score:" +"    " +d["percentage_total"] +"%" +"<br/>"+"<br/>"+"Increament /Decreament:" +"   "+ d["deduction"] +"%")
+               .style("left", (d3.event.pageX + 20) + "px")
+               .style("top", (d3.event.pageY - 30) + "px")
+               .style("color", "#ffffff")
+               .style("padding", "25px")
+               .style("font-size", "17px")
+               .style("border-radius", "40px")
+               .style("background", "#000000");
+      })
+      .on("mouseout", function(d) {
+          tooltip.transition()
+               .duration(500)
+               .style("opacity", 0);
+      });
+
+
+});
+
+</script>
+</body>
+</html>
