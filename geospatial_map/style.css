@@ -1,0 +1,74 @@
+body {
+	margin:25px;
+}
+
+#heading {
+	float: center;
+}
+
+#map {
+	width: 100%;
+	height: 100%;
+	border: 1px solid rgb(255, 254, 254);
+	background: #ffffff;
+	float: left;
+	padding: 50px 50px 50px 50px;
+}
+
+#tooltip {
+	position: absolute;
+	z-index: 6;
+	background: rgba(5, 1, 41, 0.8);
+	border-radius: 40px;
+	width: 200px;
+	height: 385px;
+	color: rgb(253, 251, 251);
+	font-size: 14px;
+	padding: 15px;
+	top: -390px;
+	left: -390px;
+	font-family: "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;
+}
+
+#tooltip p {
+	margin: 0;
+}
+
+#tooltip p.value {
+	font-weight: bold;
+}
+
+#details  {
+  margin-top: 2rem;
+  position: absolute;
+  overflow: hidden;
+}
+
+#details2  {
+	margin-top: 2rem;
+	position: absolute;
+	overflow: hidden;
+  }
+
+#initial {
+	font-size: 1.2rem;
+	position: absolute;
+}
+
+.container {
+	width: 100%;
+	margin: auto auto auto auto;
+	padding: 0px 0px 0px 0px;
+	height: 100%;
+
+}
+
+.container2 {
+	width: 100%;
+	height: 100%;
+	margin: 0px 0px 0px 0px;
+	padding: 20px 20px 20px 20px;
+	background-color: rgb(250, 250, 250);
+	border-radius: 20px;
+
+}
