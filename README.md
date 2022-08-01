@@ -10,13 +10,13 @@
 
 # Assignment Links
 Bargraph<br>
-https://andrkenya.github.io/andrew_bukenya/bargraph/
+(https://andrkenya.github.io/andrew_bukenya/bargraph/)
 
 Piechart <br>
-https://andrkenya.github.io/andrew_bukenya/piechart/
+(https://andrkenya.github.io/andrew_bukenya/piechart/)
 
 Scatterplot <br>
-https://andrkenya.github.io/andrew_bukenya/scatterplot/
+(https://andrkenya.github.io/andrew_bukenya/scatterplot/)
 
 Geospatial Map <br>
-http://aynwerdgroup.ga/geospatial_map/
+(http://aynwerdgroup.ga/geospatial_map/)
