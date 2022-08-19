@@ -15,4 +15,4 @@
 
 [Scatterplot](https://andrkenya.github.io/andrew_bukenya/scatterplot/)
 
-[Geospatial Map](https://www.aynwerdglobal.ga/andrew_bukenya/geospatial_map/)
+[Geospatial Map](https://www.aynwerdglobal.ga/andrew_bukenya/geospatial_map2/)
