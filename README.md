@@ -16,3 +16,9 @@
 [Scatterplot](https://andrkenya.github.io/andrew_bukenya/scatterplot/)
 
 [Geospatial Map](https://www.aynwerdglobal.ga/andrew_bukenya/geospatial_map2/)
+
+-----------------------------------------------------------------------------------------------------------------------
+
+[Clustering Piechart](https://andrkenya.github.io/andrew_bukenya/clustering/piechart/)
+
+[Clustering Bargraph](https://andrkenya.github.io/andrew_bukenya/clustering/bargraph/)
