@@ -22,3 +22,5 @@
 [Clustering Piechart](https://andrkenya.github.io/andrew_bukenya/clustering/piechart/)
 
 [Clustering Bargraph](https://andrkenya.github.io/andrew_bukenya/clustering/bargraph/)
+
+[Word Cloud Visualization](https://andrkenya.github.io/andrew_bukenya/word_cloud/)
