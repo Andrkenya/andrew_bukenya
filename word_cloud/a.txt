@@ -1,0 +1,177 @@
+words= [
+    "Your learning velocity this week has improved a lot.
+Your learning velocity could improve this week.
+Your learning velocity could improve
+He has shown outstanding skills in multi-tasking where he has integrated Firebase to the business to business flutter application on the login and signup pages, as well as integrating Django back-end to the data manipulation system. With time, Joshua will be a very great developer. Put in more efforts and don't give up.
+Sonia has improved greatly in especially areas of Systems Administration and has been an asset to the Department.
+Ms. Rashidah has gained some knowledge on sharing resources using virtual machines. She has also gained competence in building PCs.
+Ms. Rashidah has been a dedicated Intern. The desire to keep learning on a daily will help her gain greater heights.
+Sonia exhibited creativity when she improved on the Departments Capacityies in records management. She has kept progressive.
+Work well done with a Professional touch
+The experiments this week have focused on making alterations to the mode too improve the accuracy. This involved changing the model architecture to include batch normalization and the training tasks are still in progress. I have also asked him to start drafting the internship report and share it for review.
+Always willing to learn and practice new skills and engage practically in the training.
+The reception of this week's learning subject - Cyber Security and System Administration was great and it the desire to learn was good.
+The week went well. Students had a background in Digital Marketing and so the concepts introduced were familiar.
+Internship concluded
+Patience exhibited maturity and ownership when she represented the company at the Road show. She has "hidden" marketing and sales skills which is a plus given her technical abilities. We have recommended her for more company representations going forward.
+AL's SRS documents have been matching our quality requirements
+Frequent feedback needed while working remotely.
+He is compliant
+Good TIme Management and team Work Skills.
+Good a student, eager to learn
+We wish Brian the very best.
+Great progress from your end this week.
+The tasks expected to be delivered included introducing the cache system with redis to the  . However, our contract ends in this week without more key modules being integrated to the boosted auth upgrade.
+"Completed:
+ Configuring the network (VLAN) using the network software (Putty)
+ Configuring the network devices (router, switches, computers)
+ Creation of Vlans, and general security network configurations.
+ Trunking ports and setting the Access ports as per the identified Vlans"
+got exposed to business analysts and how stories of clients are translated into code.
+the intern learnt and was exposed to power management in the DC and how different DC services such as colocation and Backup as a service works.
+Indulge more of self into research so that you can polish up to the best
+All the tasks assigned to her were finished in time.
+She must have been greatful through the system administration tasks directed to her.
+Promising student
+The trainee handled user support and also participated in the repairs of computers and printers. He has also been troubleshooting network breakdown
+Concentration to tasks reduced in this week
+Patrick is a promising student please keep it up
+Great Kyagaba, for putting in time to practice what you have learnt, more practice for the best.
+..
+Miss Nakityo finalized working on the functionality of the Notifications and Results pages.
+Miss Nakityo was able to work on the Score feature for the students and finish it.
+Jonah completed the business to business platform tasks which were assigned to him during the internship. He as well managed to multi-task as he also gave in time to learn Data Science with the Data Science internship team. Thanks for being cooperative and putting in your best to learn.
+well done!
+She is promising
+Performing user acceptance tests helped the intern to deal with the actual issues before setting the systems to operations
+Innocent has managed to build an LSTM model for the next word prediction for Luganda which is a very impressive milestone. The next steps will involve making optimizations to this baseline and I look forward to working with him even after the internship.
+Student faced the challenge of a lost laptop, has been provided a temporary ministry laptop to complete the remainder of the task and is progressing well.
+"He is always looking for tasks. Very enthusiastic
+He is learning a lot"
+"His systemï¿½s development supervisor says he is a quick learn and loves to do his assignments in time.
+He needs to do more projects to perfect his programming skills."
+Elijah managed to create monitoring and notification tools for the delivery pipeline. He has also demonstrated the need for continuity of a project by writing system documentation.
+Elijah demonstrated good communication skills and troubleshooting by synchronizing with the NSSF hi-innovator team to build a CICD pipeline for the NSSF platform. Shortening the time of software delivery
+Elijah demonstrated a very good understanding of the distributed system, computer networking and problem-solving. He managed to synchronize with various stakeholders ie NITAU, UNMC and teammates to get work done. A true demonstration of teamwork
+presented fairly good web designs - 8/10 scale
+had no knowledge about test environments - but at the end of the week was able to pick basic concepts on application unit testing with help of Brian (assistant supervisor)
+.
+I have asked Halimah to start working on her internship report and submit it for review.
+"Completed:
+ Configuring the network (VLAN) using the network software (Putty)
+ Configuring the network devices (router, switches, computers)
+ Creation of Vlans, and general security network configurations.
+ Trunking ports and setting the Access ports as per the identified Vlans"
+"Completed:
+ Configuring the network (VLAN) using the network software (Putty)
+ Configuring the network devices (router, switches, computers)
+ Creation of Vlans, and general security network configurations.
+ Trunking ports and setting the Access ports as per the identified Vlans 
+ Configuring DHCP server on a router"
+Engaging teammate
+Engaging teammate
+Engaging teammate
+Innocent is almost done with internship. I encourage her to use the remaining time to concentrate on the semester load and the same time start writting end of internship report.
+None
+Commendable job on preparing for the last cloud computing conversations event.
+Joshua finalized with the Data manipulation system using Django and python libraries. Thanks for the cooperation and great work done.
+well adjusted with other developers at Gandapps and got acquainted with technologies we employ here. though still needs so much mentoring to fully be part and parcel with it all
+Facing a new language and most of all, the assigned project is a FinTech subject, he is facing alot of bugs and errors however, gladly making research and reading about it and fixing the bugs, thats good
+She managed to design a simple FLyer and Business Card for herself using Adobe Photoshop and Illustrator.
+She can do well if more efforts are invested.
+Very Good Knowledge of Computer
+"Successfully installed Microsoft word to the computers and modification of the system
+Improved time management despite required attention from university activities."
+Hope you have learned something from your experience with the bank. Best of luck in rest of your studies.
+"Improved inter personal skill while working with staff and fellow interns.
+Confident while carrying out tasks."
+Great Stella, for putting in time to practice what you have learnt, more practice for the best. Try your best to balance the time so that you give the required time for internship as well. Hardwork pays. But so far good.
+Stella has managed to implement the front-end for the data manipulation system. Try your best to learn Django within the minimum possible time so as to start on the back-end of the data manipulation system.
+Stella finalized with the internship data manipulation system using Django as the back-end due to her commitment and sacrifice. Thanks for being cooperative.
+Stella has always given her best to practice, and has managed to implement part of the data manipulation system, try to put in more time to complete the tasks assigned in time.
+The intern has coped up and learnt data collection and analysis principles. They have been able to apply this knowledge to one of our database applications for our services.
+She is learning how to adapt to practical way of learning software development skills through hands on practical and applied skills of the software development life cycle.
+Juma is self motivated and focused
+I have asked Rebecca to draft her internship report and share it for review.
+I have reviewed the improvements made by Rebecca on the regression model. She has included more features for her training which has slightly improved the model. I have asked her to draw insights from the EDA to make further improvements and to also read about the evaluation metrics.
+Completed working with APIs by fetching data from MYSQL databases
+He is teachable
+There is need to engage more with other staff
+He was engaging through this week
+Covered the major aspects of software development life cycle, demonstrated knowledge in software development, acquired the soft skills and some experience needed to thrive in a work environment. Demonstrated potential of a becoming an excellent programmer
+he was really good with tablespaces
+he is commited
+The above headlines were achieved by the students and they are really good learner
+Samson finalized with the internship data manipulation system using Django as the back-end due to his commitment and sacrifice. Thanks for being cooperative and hardworking
+The previously collected requirements for the food management system were revised with what was implemented and the server monitoring tool was further set up to provide clear metrics
+The team and him were able to collect complete requirements as required
+Intern managed to set up a monitoring tool on one of the servers. This was an exercise to put their DevOps skills to the test.
+This was impressive work. The intern opened grounds for a new product for the company.
+The week went well. Students had a background in Digital Marketing and so the concepts introduced were familiar.
+It was best to attach the intern to an actual project for exposure. This helped him have his skills leveled up and made him familiar with the ongoing project. The on-boarding session went well.
+He managed to complete the task as expected. He presented all challenges faced and was advised accordingly. Nice work for the intern
+"Very good conduct.
+Always reporting on TIme."
+The student is coping up with practical application of system design and architecture.
+Good report writing
+Software and software updates, patches, upgrades, and applications were the highlights of the week. A student was able to choose the software application of her choice
+More focus on programming and website development
+Its a challenging project is facing and we glad he's handling it well and willing to face the challenges positively more so using a new learned programming frame work.
+Balancing school and internship was a challenge in this very week.
+introduced to website designing
+hosted websites
+worked with cpanels
+started mysql databases
+able to do tasks assigned
+good with website designing and database management
+I still encourage Kiiza to use simulation software like packet tracer if he's to perfect cisco IOS commands. Besides, he can use internet for further research.
+Yiga has shared a draft of his report for internship and I have advised and made a few comments on how he can improve it
+He faced a new challenge that he is step by step trying to handle systematically and, surprising embrassing a new Langauge which is good
+Demonstrated overall commitment to work and ability to learn with respect and excellent interpersonal skills
+Aweebwa finalized with the internship data manipulation system using Django as the back-end due to his commitment and sacrifice. We are looking forward to working with you in future projects.
+Aweebwa has successfully implemented file upload to the data manipulation system and also went ahead to add a model for storing the csv so as to generate graphs and some visualization from it. Great work so far and he is progress is promising.
+Samuel has started internship. We are going to equip him hands-on skills in Networking & Systems Administration, PC repair & Software maintenance and Coding.
+Habibah has started internship. We are going to equip her with hands-on skills and practical competence for the next 6 weeks.
+Habibah is almost done with internship. I encourage her to use the remaining days to write end of internship report and also concentrate on passing tests and assignments at campus.
+"Managed to complete tasks and were introduced to opensource mariadb application for creation. 
+On the overall she has been very hardworking , agile and can easily cope with the change of environment . She has gotten on well with all the other members' of the unit and willing to learn.
+I advise her to continue with the hands-on practice with the knowledge she has acquired as this will help her in her career upon graduation"
+"Anjellinah fully closed out on all tasks assigned. Her internship report was also reviewed and signed off.
+Overall she has exhibited an exceptional need to learn and better herself.
+We wish her all the best in her academics."
+the student was gradually improving, abiding by instructions and being positive towards learning.
+the student was gradually improving, abiding by instructions and being positive towards learning.
+the student was gradually improving, abiding by instructions and being positive towards learning.
+the student was gradually improving, abiding by instructions and being positive towards learning.
+the student was gradually improving, abiding by instructions and being positive towards learning.
+the student was gradually improving, abiding by instructions and being positive towards learning.
+positive in all aspects
+best of wishes
+If Doreen has some money, I encourage her to buy genuine software which is not pirated
+Internship is almost done. I encourage Doreen to start writing end of internship report and also concentrate on passing tests / assignments at Campus
+I encourage Doreen to use the available tools / equipment at Stratcom. She can always buy her personal PC toolkit if she really wants it.
+"Priority , should be given to the out-grower and aggregator , also do consider updating the pivotal tracker
+we have back to back meeting in the course of the week, Address errors with User Login and registration"
+Assignment skillfully completed
+Reagan is a quick learner and was able to jump in very quickly. He showed a lot of imitative in wanting to learn and competed all of the tasks we gave him in a timely manner.
+We are very satisfied with Reaganï¿½s overall performance. I certainly would consider him for a more permanent job in the future.
+"I tested the Affiliate platform. it is working however let us discus implementation with Yo-Farm, next week.
+The velocity of the project is moving well"
+please reach out to Vincent and lets have a solution since it delaying us. do discuss with Nicholas the his competence to take on the whole project. The out grower profiling works perfectly.
+Yes, Let us address this image thing since it has been pending, and also verify that the hosting environments are ready.Great work Ben!
+"quick recovery, Ben, I will Engage Baker, and Bonny and Bonny, including me myself so that we help fasten this tasting thing,
+A lot of improvements on the platform. Bonny is doing it well"
+"Yes, We talked of an Agile approach, you have the test reports, let us go live next week so that we can improve on the user experience once they visit Famunera.com. as agreed we will continue with review and security tasting after deployment.
+
+Cheers great work Ben,"
+Good listener and fast learner
+Fast learner and good listener
+More options should be availed to students so that they can specialize in something they are really interested in.
+Very little time to work on the design
+There is a need to take on responsibilities voluntarily and make sure it's done in the right time.
+Tasks and goals set at the start of the internship were not realized. Time management and commitment to the task at hand is very key in a work environment. Please do work on this.
+Needs more support to accomplish the pending tasks
+Positive attitude towards work. Keep it up
+The the intern is more committed to accomplish his tasks
+There is need to get a place to work on the project outside office time since she has to get back to campus for classes.
+"]

@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<head>
+    <title>Andrew's Wordcloud</title>
+    <meta charset="utf-8">
+
+</head>
+
+<body>
+    <div>
+        <strong><h3 style="text-align: center;">A WORD CLOUD SHOWING THE MOST COMMON WORDS IN THE NEUTRAL CLUSTER</h3> </h3></strong>
+          <h6 style="text-align: center;"><a href="https://www.fams-cit.com/fscomments" target="_blank">Source: https://www.fams-cit.com/fscomments
+          </a>
+        </h6>
+    </div>
+  <script src="https://d3js.org/d3.v3.min.js"></script>
+  <script src="https://rawgit.com/jasondavies/d3-cloud/master/build/d3.layout.cloud.js"></script>
+  <script>
+
+
+// Encapsulate the word cloud functionality
+function wordCloud(selector) {
+
+    var fill = d3.scale.category20b();
+
+    //Construct the word cloud's SVG element
+    var svg = d3.select(selector).append("svg")
+        .attr("width", 650)
+        .attr("height", 580)
+        .append("g")
+        .attr("transform", "translate(300,300)");
+
+
+    //Draw the word cloud
+    function draw(words) {
+        var cloud = svg.selectAll("g text")
+                        .data(words, function(d) { return d.text; })
+
+        //Entering words
+        cloud.enter()
+            .append("text")
+            .style("font-family", "Impact")
+            .style("fill", function(d, i) { return fill(i); })
+            .attr("text-anchor", "middle")
+            .attr('font-size', 1)
+            .text(function(d) { return d.text; });
+
+        //Entering and existing words
+        cloud
+            .transition()
+                .duration(550)
+                .style("font-size", function(d) { return d.size + "px"; })
+                .attr("transform", function(d) {
+                    return "translate(" + [d.x, d.y] + ")rotate(" + d.rotate + ")";
+                })
+                .style("fill-opacity", 1);
+
+        //Exiting words
+        cloud.exit()
+            .transition()
+                .duration(200)
+                .style('fill-opacity', 1e-6)
+                .attr('font-size', 1)
+                .remove();
+    }
+
+
+    //Use the module pattern to encapsulate the visualisation code. We'll
+    // expose only the parts that need to be public.
+    return {
+
+        //Recompute the word cloud for a new set of words. This method will
+        // asycnhronously call draw when the layout has been computed.
+        //The outside world will need to call this function, so make it part
+        // of the wordCloud return value.
+        update: function(words) {
+            d3.layout.cloud().size([570, 570])
+                .words(words)
+                .padding(5)
+                .rotate(function() { return ~~(Math.random() * 2) * 90; })
+                .font("Impact")
+                .fontSize(function(d) { return d.size; })
+                .on("end", draw)
+                .start();
+        }
+    }
+
+}
+
+var words = [
+    " has successfully finished internship. has finished internship. He is supposed to write end of internship report explaining in detail all the new skills he has acquired. We wish him the very best. He is supposed to write end of internship report explaining in detail all the new skills he has acquired. Successfully finished the tasks. All the above tasks were completed.Tasks well completed. Well completed. Despite a few challenges, managed to start internship at Stratcom and has successfully completed this week's tasks.",
+
+    "He successfully completed this week's main tasks without any challenges. has successfully completed this week's tasks. Despite transport challenge, she managed to come to Stratcom for internship and completed this week's tasks. He successfully completed his tasks for this week.  successfully completed this week's tasks and he's progressing well. Davis successfully completed this week's tasks without any challenges. He's a promising developer.",
+
+    "completed this week's tasks with out any challenges. Harnest completed this week's tasks without any challenges. He's doing well. This is completed successfully. Discussion completed successfully. This was completed. successfully completed this week's tasks without any challenge. He has successfully completed this week's tasks. All tasks were completed very well and on time. Tasks Completed Successfully. started her internship at Stratcom and she has completed this week's tasks without any challenge. has successfully completed this week's tasks and he's doing well.",
+
+    " is almost done with internship. He's supposed to write end of internship report explaining in detail all the newly acquired skills. has successfully finished internship. He is supposed to write end of internship report explaining in detail all the new skills he has acquired. has coded and presented the end of internship coding challenge, that is, a web app that enables students to register for internship at Stratcom. She is now supposed to write end of internship report and explain in detail all the new skills she has acquired. She is almost done with the end of internship coding challenge. Jacintah successfully coded and presented the end of internship challenge ( a web App that enables students to register for internship at Stratcom). She is supposed to write end of internship report, explaining in detail all the new skills she has acquired.She successfully coded and presented the registration App. She has to write end of internship report explaining in detail all the new skills she has acquired. All tasks completed successfully. Excellent work. "
+]
+
+//Prepare one of the sample sentences by removing punctuation,
+// creating an array of words and computing a random size attribute.
+function getWords(i) {
+    return words[i]
+            .replace(/[!\.,:;\?]/g, '')
+            .split(' ')
+            .map(function(d) {
+                return {text: d, size: 15 + Math.random() * 70};
+            })
+}
+
+//This method tells the word cloud to redraw with a new set of words.
+//In reality the new words would probably come from a server request,
+// user input or some other source.
+function showNewWords(vis, i) {
+    i = i || 0;
+
+    vis.update(getWords(i ++ % words.length))
+    setTimeout(function() { showNewWords(vis, i + 1)}, 2000)
+}
+
+//Create a new instance of the word cloud visualisation.
+var myWordCloud = wordCloud('body');
+
+//Start cycling through the demo data
+showNewWords(myWordCloud);
+
+
+</script>
