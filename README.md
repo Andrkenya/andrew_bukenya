@@ -24,3 +24,5 @@
 [Clustering Bargraph](https://andrkenya.github.io/andrew_bukenya/clustering/bargraph/)
 
 [Word Cloud Visualization](https://andrkenya.github.io/andrew_bukenya/word_cloud/)
+
+[Named Entity Recognition Model](https://andrews-ner-model.herokuapp.com/)
