@@ -1,0 +1,705 @@
+
+<!-- saved from url=(0014)about:internet -->
+<html itemscope="" itemtype="http://schema.org/Product" prefix="og: http://ogp.me/ns#" xmlns="http://www.w3.org/1999/html" class="js-focus-visible" data-js-focus-visible="" lang="en"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    
+    
+    
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+    <meta name="theme-color" content="#2a3a4b">
+    <!--<base href="/">--><base href=".">
+
+
+    <link rel="apple-touch-icon" href="https://app.meet-yard.com/images/apple-touch-icon.png">
+    <link rel="stylesheet" href="./Meet-Yard_files/all.css">
+    
+    <link rel="manifest" id="manifest-placeholder" href="https://app.meet-yard.com/manifest.json">
+
+    <script>
+        window.EXCALIDRAW_ASSET_PATH = 'libs/';
+        // Dynamically generate the manifest location URL. It must be served from the document origin, and we may have
+        // the base pointing to the CDN. This way we can generate a full URL which will bypass the base.
+        document.querySelector('#manifest-placeholder').setAttribute('href', window.location.origin + '/manifest.json');
+
+        document.addEventListener('DOMContentLoaded', () => {
+            if (!JitsiMeetJS.app) {
+                return;
+            }
+
+            JitsiMeetJS.app.renderEntryPoint({
+                Component: JitsiMeetJS.app.entryPoints.APP
+            })
+
+            const inIframe = () => {
+                try {
+                    return window.self !== window.top;
+                } catch (e) {
+                    return true;
+                }
+            };
+
+            const isElectron = navigator.userAgent.includes('Electron');
+            const shouldRegisterWorker = !isElectron && !inIframe() && 'serviceWorker' in navigator;
+
+            if (shouldRegisterWorker) {
+                navigator.serviceWorker
+                    .register(window.location.origin + '/pwa-worker.js')
+                    .then(reg => {
+                        console.log('Service worker registered.', reg);
+                    })
+                    .catch(err => {
+                        console.log(err);
+                    });
+            }
+        });
+    </script>
+    <script>
+        // IE11 and earlier can be identified via their user agent and be
+        // redirected to a page that is known to have no newer js syntax.
+        if (window.navigator.userAgent.match(/(MSIE|Trident)/)) {
+            var roomName = encodeURIComponent(window.location.pathname);
+            window.location.pathname = 'static/recommendedBrowsers.html';
+        }
+
+        window.indexLoadedTime = window.performance.now();
+        console.log("(TIME) index.html loaded:\t", indexLoadedTime);
+        // XXX the code below listeners for errors and displays an error message
+        // in the document body when any of the required files fails to load.
+        // The intention is to prevent from displaying broken page.
+        var criticalFiles = [
+            "config.js",
+            "utils.js",
+            "do_external_connect.js",
+            "interface_config.js",
+            "lib-jitsi-meet.min.js",
+            "app.bundle.min.js",
+            "all.css?v=6943"
+        ];
+        var loadErrHandler = function(e) {
+            var target = e.target;
+            // Error on <script> and <link>(CSS)
+            // <script> will have .src and <link> .href
+            var fileRef = (target.src ? target.src : target.href);
+            if (("SCRIPT" === target.tagName || "LINK" === target.tagName)
+                && criticalFiles.some(
+                    function(file) { return fileRef.indexOf(file) !== -1 })) {
+                window.onload = function() {
+                    // The whole complex part below implements page reloads with
+                    // "exponential backoff". The retry attempt is passes as
+                    // "rCounter" query parameter
+                    var href = window.location.href;
+
+                    var retryMatch = href.match(/.+(\?|&)rCounter=(\d+)/);
+                    var retryCountStr = retryMatch ? retryMatch[2] : "0";
+                    var retryCount = Number.parseInt(retryCountStr);
+
+                    if (retryMatch == null) {
+                        var separator = href.indexOf("?") === -1 ? "?" : "&";
+                        var hashIdx = href.indexOf("#");
+
+                        if (hashIdx === -1) {
+                            href += separator + "rCounter=1";
+                        } else {
+                            var hashPart = href.substr(hashIdx);
+
+                            href = href.substr(0, hashIdx)
+                                + separator + "rCounter=1" + hashPart;
+                        }
+                    } else {
+                        var separator = retryMatch[1];
+
+                        href = href.replace(
+                            /(\?|&)rCounter=(\d+)/,
+                            separator + "rCounter=" + (retryCount + 1));
+                    }
+
+                    var delay = Math.pow(2, retryCount) * 2000;
+                    if (isNaN(delay) || delay < 2000 || delay > 60000)
+                        delay = 10000;
+
+                    var showMoreText = "show more";
+                    var showLessText = "show less";
+
+                    document.body.innerHTML
+                        = "<div style='"
+                        + "position: absolute;top: 50%;left: 50%;"
+                        + "text-align: center;"
+                        + "font-size: medium;"
+                        + "font-weight: 400;"
+                        + "transform: translate(-50%, -50%)'>"
+                        + "Uh oh! We couldn't fully download everything we needed :("
+                        + "<br/> "
+                        + "We will try again shortly. In the mean time, check for problems with your Internet connection!"
+                        + "<br/><br/> "
+                        + "<div id='moreInfo' style='"
+                        + "display: none;'>" + "Missing " + fileRef
+                        + "<br/><br/></div>"
+                        + "<a id='showMore' style='"
+                        + "text-decoration: underline;"
+                        + "font-size:small;"
+                        + "cursor: pointer'>" + showMoreText + "</a>"
+                        + "&nbsp;&nbsp;&nbsp;"
+                        + "<a id ='reloadLink' style='"
+                        + "text-decoration: underline;"
+                        + "font-size:small;"
+                        + "'>reload now</a>"
+                        + "</div>";
+
+                    var reloadLink = document.getElementById('reloadLink');
+                    reloadLink.setAttribute('href', href);
+
+                    var showMoreElem = document.getElementById("showMore");
+                    showMoreElem.addEventListener('click', function () {
+                            var moreInfoElem
+                                    = document.getElementById("moreInfo");
+
+                            if (showMoreElem.innerHTML === showMoreText) {
+                                moreInfoElem.setAttribute(
+                                    "style",
+                                    "display: block;"
+                                    + "color:#FF991F;"
+                                    + "font-size:small;"
+                                    + "user-select:text;");
+                                showMoreElem.innerHTML = showLessText;
+                            }
+                            else {
+                                moreInfoElem.setAttribute(
+                                    "style", "display: none;");
+                                showMoreElem.innerHTML = showMoreText;
+                            }
+                        });
+
+                    window.setTimeout(
+                        function () { window.location.replace(href); }, delay);
+
+                    // Call extra handler if defined.
+                    if (typeof postLoadErrorHandler === "function") {
+                        postLoadErrorHandler(fileRef);
+                    }
+                };
+                window.removeEventListener(
+                    'error', loadErrHandler, true /* capture phase */);
+            }
+        };
+        window.addEventListener(
+            'error', loadErrHandler, true /* capture phase type of listener */);
+    </script>
+    <script>// Jitsi Meet configuration.
+var config = {};
+
+if (!config.hasOwnProperty('hosts')) config.hosts = {};
+
+config.hosts.domain = 'meet.jitsi';
+config.focusUserJid = 'focus@auth.meet.jitsi';
+
+var subdir = '';
+var subdomain = "";
+if (subdir.startsWith('<!--')) {
+    subdir = '';
+}
+if (subdomain) {
+    subdomain = subdomain.substring(0,subdomain.length-1).split('.').join('_').toLowerCase() + '.';
+}
+config.hosts.muc = 'muc.' + subdomain + 'meet.jitsi';
+// When using authentication, domain for guest users.
+config.hosts.anonymousdomain = 'guest.meet.jitsi';
+// Domain for authenticated users. Defaults to <domain>.
+config.hosts.authdomain = 'meet.jitsi';
+config.bosh = '/' + subdir + 'http-bind';
+config.websocket = 'wss://app.meet-yard.com/' + subdir + 'xmpp-websocket';
+
+// Video configuration.
+//
+
+if (!config.hasOwnProperty('constraints')) config.constraints = {};
+if (!config.constraints.hasOwnProperty('video')) config.constraints.video = {};
+
+config.resolution = 720;
+config.constraints.video.height = { ideal: 720, max: 720, min: 180 };
+config.constraints.video.width = { ideal: 1280, max: 1280, min: 320};
+config.disableSimulcast = false;
+config.startVideoMuted = 10;
+config.startWithVideoMuted = false;
+
+if (!config.hasOwnProperty('flags')) config.flags = {};
+config.flags.sourceNameSignaling = true;
+config.flags.sendMultipleVideoStreams = true;
+config.flags.receiveMultipleVideoStreams = true;
+
+
+// ScreenShare Configuration.
+//
+
+config.desktopSharingFrameRate = { min: 5, max: 5 };
+
+// Audio configuration.
+//
+
+config.enableNoAudioDetection = true;
+config.enableTalkWhileMuted = false;
+config.disableAP = false;
+
+if (!config.hasOwnProperty('audioQuality')) config.audioQuality = {};
+config.audioQuality.stereo = false;
+
+config.startAudioOnly = false;
+config.startAudioMuted = 10;
+config.startWithAudioMuted = false;
+config.startSilent = false;
+config.enableOpusRed = false;
+config.disableAudioLevels = false;
+config.enableNoisyMicDetection = true;
+
+
+// Peer-to-Peer options.
+//
+
+if (!config.hasOwnProperty('p2p')) config.p2p = {};
+
+config.p2p.enabled = true;
+
+
+// Breakout Rooms
+//
+
+config.hideAddRoomButton = false;
+
+
+// Etherpad
+//
+
+// Recording.
+//
+
+// Local recording configuration.
+if (!config.hasOwnProperty('localRecording')) config.localRecording = {};
+config.localRecording.disable = false;
+config.localRecording.notifyAllParticipants = false;
+config.localRecording.disableSelfRecording = false;
+
+
+// Analytics.
+//
+
+if (!config.hasOwnProperty('analytics')) config.analytics = {};
+
+// Enables callstatsUsername to be reported as statsId and used
+// by callstats as repoted remote id.
+config.enableStatsID = false;
+
+
+// Dial in/out services.
+//
+
+
+// Calendar service integration.
+//
+
+config.enableCalendarIntegration = false;
+
+// Invitation service.
+//
+
+// Miscellaneous.
+//
+
+// Prejoin page.
+if (!config.hasOwnProperty('prejoinConfig')) config.prejoinConfig = {};
+config.prejoinConfig.enabled = true;
+
+// Hides the participant name editing field in the prejoin screen.
+config.prejoinConfig.hideDisplayName = false;
+
+// List of buttons to hide from the extra join options dropdown on prejoin screen.
+// Welcome page.
+config.enableWelcomePage = true;
+
+// Close page.
+config.enableClosePage = false;
+
+// Default language.
+// Require users to always specify a display name.
+config.requireDisplayName = false;
+
+// Chrome extension banner.
+// Disables profile and the edit of all fields from the profile settings (display name and email)
+config.disableProfile = false;
+
+// Room password (false for anything, number for max digits)
+config.roomPasswordNumberOfDigits = false;
+// Advanced.
+//
+
+// Lipsync hack in jicofo, may not be safe.
+config.enableLipSync = false;
+
+config.enableRemb = true;
+config.enableTcc = true;
+
+// Enable IPv6 support.
+config.useIPv6 = true;
+
+// Transcriptions (subtitles and buttons can be configured in interface_config)
+config.transcription = { enabled: false };
+config.transcription.translationLanguages = [];
+config.transcription.translationLanguagesHead = ['en'];
+config.transcription.useAppLanguage = true;
+config.transcription.preferredLanguage = 'en-US';
+config.transcription.disableStartForAll = false;
+config.transcription.autoCaptionOnRecord = false;
+
+// Deployment information.
+//
+
+if (!config.hasOwnProperty('deploymentInfo')) config.deploymentInfo = {};
+
+// Testing
+//
+
+if (!config.hasOwnProperty('testing')) config.testing = {};
+if (!config.testing.hasOwnProperty('octo')) config.testing.octo = {};
+
+config.testing.capScreenshareBitrate = 1;
+config.testing.octo.probability = 0;
+
+// Deep Linking
+config.disableDeepLinking = true;
+
+// P2P preferred codec
+// Enable preferred video Codec
+if (!config.hasOwnProperty('videoQuality')) config.videoQuality = {};
+config.videoQuality.enforcePreferredCodec = false;
+
+if (!config.videoQuality.hasOwnProperty('maxBitratesVideo')) config.videoQuality.maxBitratesVideo = null;
+// Reactions
+config.disableReactions = false;
+
+// Polls
+config.disablePolls = false;
+
+// Configure toolbar buttons
+// Hides the buttons at pre-join screen
+// Configure remote participant video menu
+if (!config.hasOwnProperty('remoteVideoMenu')) config.remoteVideoMenu = {};
+config.remoteVideoMenu.disabled = false;
+config.remoteVideoMenu.disableKick = false;
+config.remoteVideoMenu.disableGrantModerator = true;
+config.remoteVideoMenu.disablePrivateChat = false;
+
+// Configure e2eping
+if (!config.hasOwnProperty('e2eping')) config.e2eping = {};
+config.e2eping.enabled = false;
+
+
+// Settings for the Excalidraw whiteboard integration.
+if (!config.hasOwnProperty('whiteboard')) config.whiteboard = {};
+config.whiteboard.enabled = false;
+config.whiteboard.collabServerBaseUrl = '';
+</script><!-- adapt to your needs, i.e. set hosts and bosh path -->
+    
+    <script src="./Meet-Yard_files/do_external_connect.min.js.download"></script>
+    <script>/* eslint-disable no-unused-vars, no-var, max-len */
+/* eslint sort-keys: ["error", "asc", {"caseSensitive": false}] */
+
+/**
+ * !!!IMPORTANT!!!
+ *
+ * This file is considered deprecated. All options will eventually be moved to
+ * config.js, and no new options should be added here.
+ */
+
+var interfaceConfig = {
+    APP_NAME: 'Meet-Yard',
+    AUDIO_LEVEL_PRIMARY_COLOR: 'rgba(255,255,255,0.4)',
+    AUDIO_LEVEL_SECONDARY_COLOR: 'rgba(255,255,255,0.2)',
+
+    /**
+     * A UX mode where the last screen share participant is automatically
+     * pinned. Valid values are the string "remote-only" so remote participants
+     * get pinned but not local, otherwise any truthy value for all participants,
+     * and any falsy value to disable the feature.
+     *
+     * Note: this mode is experimental and subject to breakage.
+     */
+    AUTO_PIN_LATEST_SCREEN_SHARE: 'remote-only',
+    BRAND_WATERMARK_LINK: '',
+
+    CLOSE_PAGE_GUEST_HINT: false, // A html text to be shown to guests on the close page, false disables it
+
+    DEFAULT_BACKGROUND: '#040404',
+    DEFAULT_WELCOME_PAGE_LOGO_URL: 'images/watermark.svg',
+
+    DISABLE_DOMINANT_SPEAKER_INDICATOR: false,
+
+    /**
+     * If true, notifications regarding joining/leaving are no longer displayed.
+     */
+    DISABLE_JOIN_LEAVE_NOTIFICATIONS: true,
+
+    /**
+     * If true, presence status: busy, calling, connected etc. is not displayed.
+     */
+    DISABLE_PRESENCE_STATUS: false,
+
+    /**
+     * Whether the ringing sound in the call/ring overlay is disabled. If
+     * {@code undefined}, defaults to {@code false}.
+     *
+     * @type {boolean}
+     */
+    DISABLE_RINGING: false,
+
+    /**
+     * Whether the speech to text transcription subtitles panel is disabled.
+     * If {@code undefined}, defaults to {@code false}.
+     *
+     * @type {boolean}
+     */
+    DISABLE_TRANSCRIPTION_SUBTITLES: false,
+
+    /**
+     * Whether or not the blurred video background for large video should be
+     * displayed on browsers that can support it.
+     */
+    DISABLE_VIDEO_BACKGROUND: true,
+
+    DISPLAY_WELCOME_FOOTER: true,
+    DISPLAY_WELCOME_PAGE_ADDITIONAL_CARD: false,
+    DISPLAY_WELCOME_PAGE_CONTENT: false,
+    DISPLAY_WELCOME_PAGE_TOOLBAR_ADDITIONAL_CONTENT: false,
+
+    ENABLE_DIAL_OUT: true,
+
+    ENABLE_FEEDBACK_ANIMATION: false, // Enables feedback star animation.
+
+    FILM_STRIP_MAX_HEIGHT: 120,
+
+    GENERATE_ROOMNAMES_ON_WELCOME_PAGE: true,
+
+    /**
+     * Hide the invite prompt in the header when alone in the meeting.
+     */
+    HIDE_INVITE_MORE_HEADER: false,
+
+    JITSI_WATERMARK_LINK: 'https://www.bodastage.com',
+
+    LANG_DETECTION: true, // Allow i18n to detect the system language
+    LOCAL_THUMBNAIL_RATIO: 16 / 9, // 16:9
+
+    /**
+     * Maximum coefficient of the ratio of the large video to the visible area
+     * after the large video is scaled to fit the window.
+     *
+     * @type {number}
+     */
+    MAXIMUM_ZOOMING_COEFFICIENT: 1,
+
+    /**
+     * Whether the mobile app Jitsi Meet is to be promoted to participants
+     * attempting to join a conference in a mobile Web browser. If
+     * {@code undefined}, defaults to {@code true}.
+     *
+     * @type {boolean}
+     */
+    MOBILE_APP_PROMO: true,
+
+    // Names of browsers which should show a warning stating the current browser
+    // has a suboptimal experience. Browsers which are not listed as optimal or
+    // unsupported are considered suboptimal. Valid values are:
+    // chrome, chromium, edge, electron, firefox, nwjs, opera, safari
+    OPTIMAL_BROWSERS: [ 'chrome', 'chromium', 'firefox', 'nwjs', 'electron', 'safari' ],
+
+    POLICY_LOGO: null,
+    PROVIDER_NAME: 'Jitsi',
+
+    /**
+     * If true, will display recent list
+     *
+     * @type {boolean}
+     */
+    RECENT_LIST_ENABLED: true,
+    REMOTE_THUMBNAIL_RATIO: 1, // 1:1
+
+    SETTINGS_SECTIONS: [ 'devices', 'language', 'moderator', 'profile', 'calendar', 'sounds', 'more' ],
+
+    /**
+     * Specify which sharing features should be displayed. If the value is not set
+     * all sharing features will be shown. You can set [] to disable all.
+     */
+    // SHARING_FEATURES: ['email', 'url', 'dial-in', 'embed'],
+
+    SHOW_BRAND_WATERMARK: false,
+
+    /**
+     * Decides whether the chrome extension banner should be rendered on the landing page and during the meeting.
+     * If this is set to false, the banner will not be rendered at all. If set to true, the check for extension(s)
+     * being already installed is done before rendering.
+     */
+    SHOW_CHROME_EXTENSION_BANNER: false,
+
+    SHOW_JITSI_WATERMARK: true,
+    SHOW_POWERED_BY: false,
+    SHOW_PROMOTIONAL_CLOSE_PAGE: false,
+
+    /*
+     * If indicated some of the error dialogs may point to the support URL for
+     * help.
+     */
+    SUPPORT_URL: 'https://community.jitsi.org/',
+
+    // Browsers, in addition to those which do not fully support WebRTC, that
+    // are not supported and should show the unsupported browser page.
+    UNSUPPORTED_BROWSERS: [],
+
+    /**
+     * Whether to show thumbnails in filmstrip as a column instead of as a row.
+     */
+    VERTICAL_FILMSTRIP: true,
+
+    // Determines how the video would fit the screen. 'both' would fit the whole
+    // screen, 'height' would fit the original video height to the height of the
+    // screen, 'width' would fit the original video width to the width of the
+    // screen respecting ratio, 'nocrop' would make the video as large as
+    // possible and preserve aspect ratio without cropping.
+    VIDEO_LAYOUT_FIT: 'both',
+
+    /**
+     * If true, hides the video quality label indicating the resolution status
+     * of the current large video.
+     *
+     * @type {boolean}
+     */
+    VIDEO_QUALITY_LABEL_DISABLED: false,
+
+    /**
+     * How many columns the tile view can expand to. The respected range is
+     * between 1 and 5.
+     */
+    // TILE_VIEW_MAX_COLUMNS: 5,
+
+    // List of undocumented settings
+    /**
+     INDICATOR_FONT_SIZES
+     PHONE_NUMBER_REGEX
+    */
+
+    // -----------------DEPRECATED CONFIGS BELOW THIS LINE-----------------------------
+
+    /**
+     * Specify URL for downloading ios mobile app.
+     */
+    // MOBILE_DOWNLOAD_LINK_IOS: 'https://itunes.apple.com/us/app/jitsi-meet/id1165103905',
+
+    /**
+     * Specify custom URL for downloading android mobile app.
+     */
+    // MOBILE_DOWNLOAD_LINK_ANDROID: 'https://play.google.com/store/apps/details?id=org.jitsi.meet',
+
+    /**
+     * Specify mobile app scheme for opening the app from the mobile browser.
+     */
+    // APP_SCHEME: 'org.jitsi.meet',
+
+    // NATIVE_APP_NAME: 'Jitsi Meet',
+
+    /**
+     * Specify Firebase dynamic link properties for the mobile apps.
+     */
+    // MOBILE_DYNAMIC_LINK: {
+    //    APN: 'org.jitsi.meet',
+    //    APP_CODE: 'w2atb',
+    //    CUSTOM_DOMAIN: undefined,
+    //    IBI: 'com.atlassian.JitsiMeet.ios',
+    //    ISI: '1165103905'
+    // },
+
+    /**
+     * Hide the logo on the deep linking pages.
+     */
+    // HIDE_DEEP_LINKING_LOGO: false,
+
+    /**
+     * Specify the Android app package name.
+     */
+    // ANDROID_APP_PACKAGE: 'org.jitsi.meet',
+
+    /**
+     * Specify custom URL for downloading f droid app.
+     */
+    // MOBILE_DOWNLOAD_LINK_F_DROID: 'https://f-droid.org/en/packages/org.jitsi.meet/',
+
+    // Connection indicators (
+    // CONNECTION_INDICATOR_AUTO_HIDE_ENABLED,
+    // CONNECTION_INDICATOR_AUTO_HIDE_TIMEOUT,
+    // CONNECTION_INDICATOR_DISABLED) got moved to config.js.
+
+    // Please use disableModeratorIndicator from config.js
+    // DISABLE_FOCUS_INDICATOR: false,
+
+    // Please use defaultLocalDisplayName from config.js
+    // DEFAULT_LOCAL_DISPLAY_NAME: 'me',
+
+    // Please use defaultLogoUrl from config.js
+    // DEFAULT_LOGO_URL: 'images/watermark.svg',
+
+    // Please use defaultRemoteDisplayName from config.js
+    // DEFAULT_REMOTE_DISPLAY_NAME: 'Fellow Jitster',
+
+    // Moved to config.js as `toolbarConfig.initialTimeout`.
+    // INITIAL_TOOLBAR_TIMEOUT: 20000,
+
+    // Please use `liveStreaming.helpLink` from config.js
+    // Documentation reference for the live streaming feature.
+    // LIVE_STREAMING_HELP_LINK: 'https://jitsi.org/live',
+
+    // Moved to config.js as `toolbarConfig.alwaysVisible`.
+    // TOOLBAR_ALWAYS_VISIBLE: false,
+
+    // This config was moved to config.js as `toolbarButtons`.
+    // TOOLBAR_BUTTONS: [],
+
+    // Moved to config.js as `toolbarConfig.timeout`.
+    // TOOLBAR_TIMEOUT: 4000,
+
+    // Allow all above example options to include a trailing comma and
+    // prevent fear when commenting out the last value.
+    // eslint-disable-next-line sort-keys
+    makeJsonParserHappy: 'even if last key had a trailing comma'
+
+    // No configuration value should follow this line.
+};
+
+/* eslint-enable no-unused-vars, no-var, max-len */
+</script>
+    <script src="./Meet-Yard_files/lib-jitsi-meet.min.js.download"></script>
+    <script src="./Meet-Yard_files/app.bundle.min.js.download"></script><style data-styled-components=""></style><style data-emotion="css"></style><style></style><style></style><style></style><style>@font-face{font-family:"Virgil";src:url(https://app.meet-yard.com/libs/excalidraw-assets/Virgil.woff2);font-display:swap}@font-face{font-family:"Cascadia";src:url(https://app.meet-yard.com/libs/excalidraw-assets/Cascadia.woff2);font-display:swap}</style><style>.excalidraw .popover{position:absolute;z-index:10;padding:5px 0 5px}</style><style>:export{themeFilter:invert(93%) hue-rotate(180deg);rightSidebarWidth:302px}.excalidraw .color-picker{background:var(--popup-bg-color);border:0 solid rgba(255,255,255,.25);box-shadow:rgba(0,0,0,.25) 0 1px 4px;border-radius:4px;position:absolute}:root[dir=ltr] .excalidraw .color-picker{left:-5.5px}:root[dir=rtl] .excalidraw .color-picker{right:-5.5px}.excalidraw .color-picker-control-container{display:grid;grid-template-columns:auto 1fr;align-items:center}.excalidraw .color-picker-triangle{width:0;height:0;border-style:solid;border-width:0 9px 10px;border-color:rgba(0,0,0,0) rgba(0,0,0,0) var(--popup-bg-color);position:absolute;top:-10px}:root[dir=ltr] .excalidraw .color-picker-triangle{left:12px}:root[dir=rtl] .excalidraw .color-picker-triangle{right:12px}.excalidraw .color-picker-triangle-shadow{border-color:rgba(0,0,0,0) rgba(0,0,0,0) rgba(0,0,0,.1);top:-11px}.excalidraw .color-picker-content--default{padding:.5rem;display:grid;grid-template-columns:repeat(5, auto);grid-gap:.5rem;border-radius:4px}.excalidraw .color-picker-content--default:focus{outline:none;box-shadow:0 0 0 2px var(--focus-highlight-color)}.excalidraw .color-picker-content--canvas{display:flex;flex-direction:column;padding:.25rem}.excalidraw .color-picker-content--canvas-title{color:#868e96;font-size:12px;padding:0 .25rem}.excalidraw .color-picker-content--canvas-colors{padding:.5rem 0}.excalidraw .color-picker-content--canvas-colors .color-picker-swatch{margin:0 .25rem}.excalidraw .color-picker-content .color-input-container{grid-column:1/span 5}.excalidraw .color-picker-swatch{position:relative;height:1.875rem;width:1.875rem;cursor:pointer;border-radius:4px;margin:0;box-sizing:border-box;border:1px solid #ddd;background-color:currentColor !important;-webkit-filter:var(--theme-filter);filter:var(--theme-filter)}.excalidraw .color-picker-swatch:focus{box-shadow:0 0 4px 1px currentColor;border-color:var(--select-highlight-color)}.excalidraw .color-picker-transparent{border-radius:4px;box-shadow:rgba(0,0,0,.1) 0 0 0 1px inset;position:absolute;top:0;right:0;bottom:0;left:0}.excalidraw .color-picker-transparent,.excalidraw .color-picker-label-swatch{background:url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAMUlEQVQ4T2NkYGAQYcAP3uCTZhw1gGGYhAGBZIA/nYDCgBDAm9BGDWAAJyRCgLaBCAAgXwixzAS0pgAAAABJRU5ErkJggg==) left center}.excalidraw .color-picker-hash{background:var(--input-border-color);height:1.875rem;width:1.875rem;color:var(--input-label-color);display:flex;align-items:center;justify-content:center;position:relative}:root[dir=ltr] .excalidraw .color-picker-hash{border-radius:4px 0 0 4px}:root[dir=rtl] .excalidraw .color-picker-hash{border-radius:0 4px 4px 0}.excalidraw .color-input-container:focus-within .color-picker-hash{box-shadow:0 0 0 2px var(--focus-highlight-color)}.excalidraw .color-input-container:focus-within .color-picker-hash::before,.excalidraw .color-input-container:focus-within .color-picker-hash::after{content:"";width:1px;height:100%;position:absolute;top:0}.excalidraw .color-input-container:focus-within .color-picker-hash::before{background:var(--input-border-color)}:root[dir=ltr] .excalidraw .color-input-container:focus-within .color-picker-hash::before{right:-1px}:root[dir=rtl] .excalidraw .color-input-container:focus-within .color-picker-hash::before{left:-1px}.excalidraw .color-input-container:focus-within .color-picker-hash::after{background:var(--input-bg-color)}:root[dir=ltr] .excalidraw .color-input-container:focus-within .color-picker-hash::after{right:-2px}:root[dir=rtl] .excalidraw .color-input-container:focus-within .color-picker-hash::after{left:-2px}.excalidraw .color-input-container{display:flex}.excalidraw .color-picker-input{width:11ch;margin:0;font-size:1rem;background-color:var(--input-bg-color);color:var(--text-primary-color);border:0;outline:none;height:1.75em;box-shadow:var(--input-border-color) 0 0 0 1px inset;float:left;padding:1px;-webkit-padding-start:.5em;padding-inline-start:.5em;-webkit-appearance:none;appearance:none}:root[dir=ltr] .excalidraw .color-picker-input{border-radius:0 4px 4px 0}:root[dir=rtl] .excalidraw .color-picker-input{border-radius:4px 0 0 4px}.excalidraw .color-picker-label-swatch{height:1.875rem;width:1.875rem;-webkit-margin-end:.25rem;margin-inline-end:.25rem;border:1px solid #dee2e6;position:relative;overflow:hidden;background-color:rgba(0,0,0,0) !important;-webkit-filter:var(--theme-filter);filter:var(--theme-filter)}.excalidraw .color-picker-label-swatch:after{content:"";position:absolute;top:0;left:0;width:100%;height:100%;background:var(--swatch-color)}.excalidraw .color-picker-keybinding{position:absolute;bottom:2px;font-size:.7em}:root[dir=ltr] .excalidraw .color-picker-keybinding{right:2px}:root[dir=rtl] .excalidraw .color-picker-keybinding{left:2px}.excalidraw--mobile.excalidraw .color-picker-keybinding{display:none}.excalidraw .color-picker-type-canvasBackground .color-picker-keybinding{color:#aaa}.excalidraw .color-picker-type-elementBackground .color-picker-keybinding{color:#fff}.excalidraw .color-picker-swatch[aria-label=transparent] .color-picker-keybinding{color:#aaa}.excalidraw .color-picker-type-elementStroke .color-picker-keybinding{color:#d4d4d4}.excalidraw.theme--dark .color-picker-type-elementBackground .color-picker-keybinding{color:#000}.excalidraw.theme--dark .color-picker-swatch[aria-label=transparent] .color-picker-keybinding{color:#000}</style><style>:export{themeFilter:invert(93%) hue-rotate(180deg);rightSidebarWidth:302px}.excalidraw .picker-container{display:inline-block;box-sizing:border-box;margin-right:.25rem}.excalidraw .picker{background:var(--popup-bg-color);border:0 solid rgba(255,255,255,.25);box-shadow:rgba(0,0,0,.25) 0 1px 4px;border-radius:4px;position:absolute}.excalidraw .picker-container button,.excalidraw .picker button{position:relative;display:flex;align-items:center;justify-content:center}.excalidraw .picker-container button:focus-visible,.excalidraw .picker button:focus-visible{outline:rgba(0,0,0,0);background-color:var(--button-gray-2)}.excalidraw .picker-container button:focus-visible svg,.excalidraw .picker button:focus-visible svg{opacity:1}.excalidraw .picker-container button:hover,.excalidraw .picker button:hover{background-color:var(--button-gray-2)}.excalidraw .picker-container button:active,.excalidraw .picker button:active{background-color:var(--button-gray-3)}.excalidraw .picker-container button:disabled,.excalidraw .picker button:disabled{cursor:not-allowed}.excalidraw .picker-container button svg,.excalidraw .picker button svg{margin:0;width:36px;height:18px;opacity:.6;pointer-events:none}.excalidraw .picker button{padding:.25rem .28rem .35rem .25rem}.excalidraw .picker-triangle{width:0;height:0;position:relative;top:-10px;z-index:10}:root[dir=ltr] .excalidraw .picker-triangle{left:12px}:root[dir=rtl] .excalidraw .picker-triangle{right:12px}.excalidraw .picker-triangle:before{content:"";position:absolute;border-style:solid;border-width:0 9px 10px;border-color:rgba(0,0,0,0) rgba(0,0,0,0) rgba(0,0,0,.1);top:-1px}.excalidraw .picker-triangle:after{content:"";position:absolute;border-style:solid;border-width:0 9px 10px;border-color:rgba(0,0,0,0) rgba(0,0,0,0) var(--popup-bg-color)}.excalidraw .picker-content{padding:.5rem;display:grid;grid-template-columns:repeat(3, auto);grid-gap:.5rem;border-radius:4px}:root[dir=rtl] .excalidraw .picker-content{padding:.4rem}.excalidraw .picker-keybinding{position:absolute;bottom:2px;font-size:.7em;color:var(--keybinding-color)}:root[dir=ltr] .excalidraw .picker-keybinding{right:2px}:root[dir=rtl] .excalidraw .picker-keybinding{left:2px}.excalidraw--mobile.excalidraw .picker-keybinding{display:none}.excalidraw .picker-type-canvasBackground .picker-keybinding{color:#aaa}.excalidraw .picker-type-elementBackground .picker-keybinding{color:#fff}.excalidraw .picker-swatch[aria-label=transparent] .picker-keybinding{color:#aaa}.excalidraw .picker-type-elementStroke .picker-keybinding{color:#d4d4d4}.excalidraw.theme--dark .picker-type-elementBackground .picker-keybinding{color:#000}.excalidraw.theme--dark .picker-swatch[aria-label=transparent] .picker-keybinding{color:#000}</style><style>:export{themeFilter:invert(93%) hue-rotate(180deg);rightSidebarWidth:302px}.excalidraw .ToolIcon{display:inline-flex;align-items:center;position:relative;cursor:pointer;-webkit-tap-highlight-color:rgba(0,0,0,0);-webkit-user-select:none;user-select:none}.excalidraw .ToolIcon--plain{background-color:rgba(0,0,0,0)}.excalidraw .ToolIcon--plain .ToolIcon__icon{width:2rem;height:2rem}.excalidraw .ToolIcon_type_radio+.ToolIcon__icon,.excalidraw .ToolIcon_type_checkbox+.ToolIcon__icon{background-color:var(--button-gray-1)}.excalidraw .ToolIcon_type_radio+.ToolIcon__icon:hover,.excalidraw .ToolIcon_type_checkbox+.ToolIcon__icon:hover{background-color:var(--button-gray-2)}.excalidraw .ToolIcon_type_radio+.ToolIcon__icon:active,.excalidraw .ToolIcon_type_checkbox+.ToolIcon__icon:active{background-color:var(--button-gray-3)}.excalidraw .ToolIcon__icon{width:2.5rem;height:2.5rem;color:var(--icon-fill-color);display:flex;justify-content:center;align-items:center;border-radius:var(--border-radius-lg)}.excalidraw .ToolIcon__icon+.ToolIcon__label{-webkit-margin-start:0;margin-inline-start:0}.excalidraw .ToolIcon__icon svg{position:relative;height:1em;fill:var(--icon-fill-color);color:var(--icon-fill-color)}.excalidraw .ToolIcon__label{display:flex;align-items:center;color:var(--icon-fill-color);font-family:var(--ui-font);margin:0 .8em;text-overflow:ellipsis}.excalidraw .ToolIcon__label .Spinner{margin-left:.6em}.excalidraw .ToolIcon_size_small .ToolIcon__icon{width:2rem;height:2rem;font-size:.8em}.excalidraw .excalidraw .ToolIcon_type_button,.excalidraw .Modal .ToolIcon_type_button,.excalidraw .ToolIcon_type_button{padding:0;border:none;margin:0;font-size:inherit}.excalidraw .excalidraw .ToolIcon_type_button:focus-visible,.excalidraw .Modal .ToolIcon_type_button:focus-visible,.excalidraw .ToolIcon_type_button:focus-visible{box-shadow:0 0 0 2px var(--focus-highlight-color)}.excalidraw .excalidraw .ToolIcon_type_button.ToolIcon--selected,.excalidraw .Modal .ToolIcon_type_button.ToolIcon--selected,.excalidraw .ToolIcon_type_button.ToolIcon--selected{background-color:var(--button-gray-2)}.excalidraw .excalidraw .ToolIcon_type_button.ToolIcon--selected:active,.excalidraw .Modal .ToolIcon_type_button.ToolIcon--selected:active,.excalidraw .ToolIcon_type_button.ToolIcon--selected:active{background-color:var(--button-gray-3)}.excalidraw .excalidraw .ToolIcon_type_button:hover,.excalidraw .Modal .ToolIcon_type_button:hover,.excalidraw .ToolIcon_type_button:hover{background-color:var(--button-gray-2)}.excalidraw .excalidraw .ToolIcon_type_button:active,.excalidraw .Modal .ToolIcon_type_button:active,.excalidraw .ToolIcon_type_button:active{background-color:var(--button-gray-3)}.excalidraw .excalidraw .ToolIcon_type_button--show,.excalidraw .Modal .ToolIcon_type_button--show,.excalidraw .ToolIcon_type_button--show{visibility:visible}.excalidraw .excalidraw .ToolIcon_type_button--hide,.excalidraw .Modal .ToolIcon_type_button--hide,.excalidraw .ToolIcon_type_button--hide{visibility:hidden}.excalidraw .ToolIcon_type_radio,.excalidraw .ToolIcon_type_checkbox{position:absolute;opacity:0;pointer-events:none}.excalidraw .ToolIcon_type_radio:not(.ToolIcon_toggle_opaque):checked+.ToolIcon__icon,.excalidraw .ToolIcon_type_checkbox:not(.ToolIcon_toggle_opaque):checked+.ToolIcon__icon{background-color:var(--button-gray-2)}.excalidraw .ToolIcon_type_radio:not(.ToolIcon_toggle_opaque):checked+.ToolIcon__icon:active,.excalidraw .ToolIcon_type_checkbox:not(.ToolIcon_toggle_opaque):checked+.ToolIcon__icon:active{background-color:var(--button-gray-3)}.excalidraw .ToolIcon_type_radio:focus-visible+.ToolIcon__icon,.excalidraw .ToolIcon_type_checkbox:focus-visible+.ToolIcon__icon{box-shadow:0 0 0 2px var(--focus-highlight-color)}.excalidraw .ToolIcon_type_radio:active+.ToolIcon__icon,.excalidraw .ToolIcon_type_checkbox:active+.ToolIcon__icon{background-color:var(--button-gray-3)}.excalidraw .ToolIcon_type_floating{background-color:rgba(0,0,0,0)}.excalidraw .ToolIcon_type_floating:hover{background-color:rgba(0,0,0,0)}.excalidraw .ToolIcon_type_floating:active{background-color:rgba(0,0,0,0)}.excalidraw .ToolIcon_type_floating .ToolIcon__icon{background-color:var(--button-gray-1);width:2rem;height:2rem}.excalidraw .ToolIcon_type_floating .ToolIcon__icon:hover{background-color:var(--button-gray-2)}.excalidraw .ToolIcon_type_floating .ToolIcon__icon:active{background-color:var(--button-gray-3)}.excalidraw .ToolIcon__keybinding{position:absolute;bottom:2px;right:3px;font-size:.5em;color:var(--keybinding-color);font-family:var(--ui-font);-webkit-user-select:none;user-select:none}@media(max-width: 425px){.excalidraw .Shape .ToolIcon__icon{width:2rem;height:2rem}.excalidraw .Shape .ToolIcon__icon svg{height:.8em}}@media(max-width: 760px){.excalidraw .ToolIcon.ToolIcon_type_floating{display:inline-block;position:absolute;right:-8px;margin-left:0;border-radius:20px 0 0 20px;z-index:1;background-color:var(--button-gray-1)}.excalidraw .ToolIcon.ToolIcon_type_floating:hover{background-color:var(--button-gray-1)}.excalidraw .ToolIcon.ToolIcon_type_floating:active{background-color:var(--button-gray-2)}.excalidraw .ToolIcon.ToolIcon_type_floating .ToolIcon__icon{border-radius:inherit}.excalidraw .ToolIcon.ToolIcon_type_floating svg{position:static}.excalidraw .ToolIcon.ToolIcon__library{top:calc(var(--sat) + 100px)}.excalidraw .ToolIcon.ToolIcon__lock{top:calc(var(--sat) + 60px)}.excalidraw .ToolIcon.ToolIcon__penMode{top:calc(var(--sat) + 140px)}}:root[dir=ltr] .excalidraw .unlocked-icon{left:2px}:root[dir=rtl] .excalidraw .unlocked-icon{right:2px}</style><style>:export{themeFilter:invert(93%) hue-rotate(180deg);rightSidebarWidth:302px}.excalidraw .TextInput{display:inline-block}</style><style>.ProjectName{margin:auto;display:flex;align-items:center}.ProjectName .TextInput{height:calc(1rem - 3px);width:200px;overflow:hidden;text-align:center;margin-left:8px;text-overflow:ellipsis}.ProjectName .TextInput--readonly{background:none;border:none;width:auto;max-width:200px;padding-left:2px}.ProjectName .TextInput--readonly:hover{background:none}</style><style>:export{themeFilter:invert(93%) hue-rotate(180deg);rightSidebarWidth:302px}.excalidraw-tooltip{position:fixed;z-index:1000;padding:8px;border-radius:6px;box-sizing:border-box;pointer-events:none;word-wrap:break-word;background:#000;line-height:1.5;text-align:center;font-size:13px;font-weight:500;color:#fff;display:none}.excalidraw-tooltip.excalidraw-tooltip--visible{display:block}.excalidraw-tooltip-wrapper{display:flex}.excalidraw-tooltip-icon{width:.9em;height:.9em;margin-left:5px;margin-top:1px;display:flex}.excalidraw--mobile.excalidraw-tooltip-icon{display:none}</style><style>:export{themeFilter:invert(93%) hue-rotate(180deg);rightSidebarWidth:302px}.excalidraw-hyperlinkContainer{display:flex;align-items:center;justify-content:space-between;position:absolute;box-shadow:0px 2px 4px 0 rgba(0,0,0,.3);z-index:100;background:var(--island-bg-color);border-radius:var(--border-radius-md);box-sizing:border-box;min-height:42px}.excalidraw-hyperlinkContainer-input,.excalidraw-hyperlinkContainer button{z-index:100}.excalidraw-hyperlinkContainer-input,.excalidraw-hyperlinkContainer-link{height:24px;padding:0 8px;line-height:24px;font-size:.9rem;font-weight:500;font-family:var(--ui-font)}.excalidraw-hyperlinkContainer-input{width:18rem;border:none;background-color:rgba(0,0,0,0);color:var(--text-primary-color);outline:none;border:none;box-shadow:none !important}.excalidraw-hyperlinkContainer-link{overflow:hidden;text-overflow:ellipsis;white-space:nowrap;max-width:15rem}.excalidraw-hyperlinkContainer button{color:#228be6;background-color:rgba(0,0,0,0) !important;font-weight:500}.excalidraw-hyperlinkContainer button.excalidraw-hyperlinkContainer--remove{color:#c92a2a}.excalidraw-hyperlinkContainer .d-none{display:none}.excalidraw-hyperlinkContainer--remove .ToolIcon__icon svg{color:#fa5252}.excalidraw-hyperlinkContainer .ToolIcon__icon{width:2rem;height:2rem}.excalidraw-hyperlinkContainer__buttons{flex:0 0 auto}</style><style>:export{themeFilter:invert(93%) hue-rotate(180deg);rightSidebarWidth:302px}.excalidraw .Checkbox{margin:4px .3em;display:flex;align-items:center;cursor:pointer;-webkit-user-select:none;user-select:none;-webkit-tap-highlight-color:rgba(0,0,0,0)}.excalidraw .Checkbox:hover:not(.is-checked) .Checkbox-box:not(:focus){box-shadow:0 0 0 2px #4dabf7}.excalidraw .Checkbox:hover:not(.is-checked) .Checkbox-box:not(:focus) svg{display:block;opacity:.3}.excalidraw .Checkbox:active .Checkbox-box{box-shadow:0 0 2px 1px inset #1c7ed6 !important}.excalidraw .Checkbox:hover .Checkbox-box{background-color:rgba(208,235,255,.2)}.excalidraw .Checkbox.is-checked .Checkbox-box{background-color:#d0ebff}.excalidraw .Checkbox.is-checked .Checkbox-box svg{display:block}.excalidraw .Checkbox.is-checked:hover .Checkbox-box{background-color:#a5d8ff}.excalidraw .Checkbox .Checkbox-box{width:22px;height:22px;padding:0;flex:0 0 auto;margin:0 1em;display:flex;align-items:center;justify-content:center;box-shadow:0 0 0 2px #1c7ed6;background-color:rgba(0,0,0,0);border-radius:4px;color:#1c7ed6}.excalidraw .Checkbox .Checkbox-box:focus{box-shadow:0 0 0 3px #1c7ed6}.excalidraw .Checkbox .Checkbox-box svg{display:none;width:16px;height:16px;stroke-width:3px}.excalidraw .Checkbox .Checkbox-label{display:flex;align-items:center}.excalidraw .Checkbox .excalidraw-tooltip-icon{width:1em;height:1em}</style><style>.excalidraw .Stack{--gap: 0;display:grid;gap:calc(var(--space-factor)*var(--gap))}.excalidraw .Stack_vertical{grid-template-columns:auto;grid-auto-flow:row;grid-auto-rows:-webkit-min-content;grid-auto-rows:min-content}.excalidraw .Stack_horizontal{grid-template-rows:auto;grid-auto-flow:column;grid-auto-columns:-webkit-min-content;grid-auto-columns:min-content}</style><style>.excalidraw .ActiveFile .ActiveFile__fileName{display:flex;align-items:center}.excalidraw .ActiveFile .ActiveFile__fileName span{text-overflow:ellipsis;overflow:hidden;white-space:nowrap;width:9.3em}.excalidraw .ActiveFile .ActiveFile__fileName svg{width:1.15em;-webkit-margin-end:.3em;margin-inline-end:.3em;-webkit-transform:scaleY(0.9);transform:scaleY(0.9)}</style><style>:export{themeFilter:invert(93%) hue-rotate(180deg);rightSidebarWidth:302px}.excalidraw .Avatar{width:2.5rem;height:2.5rem;border-radius:1.25rem;display:flex;justify-content:center;align-items:center;color:#fff;cursor:pointer;font-size:.8rem;font-weight:500}.excalidraw .Avatar-img{width:100%;height:100%;border-radius:100%}</style><style>:export{themeFilter:invert(93%) hue-rotate(180deg);rightSidebarWidth:302px}.excalidraw .context-menu{position:relative;border-radius:4px;box-shadow:0 3px 10px rgba(0,0,0,.2);padding:0;list-style:none;-webkit-user-select:none;user-select:none;margin:-0.25rem 0 0 .125rem;padding:.5rem 0;background-color:var(--popup-secondary-bg-color);border:1px solid var(--button-gray-3);cursor:default}.excalidraw .context-menu button{color:var(--popup-text-color)}.excalidraw .context-menu-option{position:relative;width:100%;min-width:9.5rem;margin:0;padding:.25rem 1rem .25rem 1.25rem;text-align:start;border-radius:0;background-color:rgba(0,0,0,0);border:none;white-space:nowrap;display:grid;grid-template-columns:1fr .2fr;align-items:center}.excalidraw .context-menu-option.checkmark::before{position:absolute;left:6px;margin-bottom:1px;content:"✓"}.excalidraw .context-menu-option.dangerous .context-menu-option__label{color:#f03e3e}.excalidraw .context-menu-option .context-menu-option__label{justify-self:start;-webkit-margin-end:20px;margin-inline-end:20px}.excalidraw .context-menu-option .context-menu-option__shortcut{justify-self:end;opacity:.6;font-family:inherit;font-size:.7rem}.excalidraw .context-menu-option:hover{color:var(--popup-bg-color);background-color:var(--select-highlight-color)}.excalidraw .context-menu-option:hover.dangerous{background-color:#fa5252}.excalidraw .context-menu-option:hover.dangerous .context-menu-option__label{color:var(--popup-bg-color)}.excalidraw .context-menu-option:focus{z-index:1}.excalidraw--mobile.excalidraw .context-menu-option{display:block}.excalidraw--mobile.excalidraw .context-menu-option .context-menu-option__label{-webkit-margin-end:0;margin-inline-end:0}.excalidraw--mobile.excalidraw .context-menu-option .context-menu-option__shortcut{display:none}.excalidraw .context-menu-option-separator{border:none;border-top:1px solid #adb5bd}</style><style>:export{themeFilter:invert(93%) hue-rotate(180deg);rightSidebarWidth:302px}.excalidraw .CollabButton.is-collaborating{background-color:var(--button-special-active-bg-color)}.excalidraw .CollabButton.is-collaborating .ToolIcon__icon svg,.excalidraw .CollabButton.is-collaborating .ToolIcon__label{color:var(--icon-green-fill-color)}.excalidraw .CollabButton-collaborators{min-width:1em;min-height:1em;line-height:1;position:absolute;bottom:-5px;padding:3px;border-radius:50%;background-color:#40c057;color:#fff;font-size:.6em;font-family:"Cascadia"}:root[dir=ltr] .excalidraw .CollabButton-collaborators{right:-5px}:root[dir=rtl] .excalidraw .CollabButton-collaborators{left:-5px}</style><style>:export{themeFilter:invert(93%) hue-rotate(180deg);rightSidebarWidth:302px}.excalidraw .Dialog{-webkit-user-select:text;user-select:text;cursor:auto}.excalidraw .Dialog__title{display:grid;align-items:center;margin-top:0;grid-template-columns:1fr calc(var(--space-factor)*7);grid-gap:var(--metric);padding:calc(var(--space-factor)*2);text-align:center;font-variant:small-caps;font-size:1.2em}.excalidraw .Dialog__titleContent{flex:1}.excalidraw .Dialog .Modal__close{color:var(--icon-fill-color);margin:0}.excalidraw .Dialog__content{padding:0 16px 16px}.excalidraw--mobile.excalidraw .Dialog{--metric: calc(var(--space-factor) * 4);--inset-left: max(var(--metric), var(--sal));--inset-right: max(var(--metric), var(--sar))}.excalidraw--mobile.excalidraw .Dialog__title{grid-template-columns:calc(var(--space-factor)*7) 1fr calc(var(--space-factor)*7);position:-webkit-sticky;position:sticky;top:0;padding:calc(var(--space-factor)*2);background:var(--island-bg-color);font-size:1.25em;box-sizing:border-box;border-bottom:1px solid var(--button-gray-2);z-index:1}.excalidraw--mobile.excalidraw .Dialog__titleContent{text-align:center}.excalidraw--mobile.excalidraw .Dialog .Island{width:100vw;height:100%;box-sizing:border-box;overflow-y:auto;padding-left:max(calc(var(--padding) * var(--space-factor)), var(--sal));padding-right:max(calc(var(--padding) * var(--space-factor)), var(--sar));padding-bottom:max(calc(var(--padding) * var(--space-factor)), var(--sab))}.excalidraw--mobile.excalidraw .Dialog .Modal__close{order:-1}</style><style>.excalidraw .Island{--padding: 0;background-color:var(--island-bg-color);box-shadow:var(--shadow-island);border-radius:var(--border-radius-lg);padding:calc(var(--padding)*var(--space-factor));position:relative;transition:box-shadow .5s ease-in-out}.excalidraw .Island.zen-mode{box-shadow:none}</style><style>:export{themeFilter:invert(93%) hue-rotate(180deg);rightSidebarWidth:302px}.excalidraw.excalidraw-modal-container{position:absolute;z-index:10}.excalidraw .Modal{position:absolute;top:0;left:0;right:0;bottom:0;display:flex;align-items:center;justify-content:center;overflow:auto;padding:calc(var(--space-factor)*10)}.excalidraw .Modal__background{position:absolute;top:0;left:0;right:0;bottom:0;z-index:1;background-color:rgba(0,0,0,.7)}.excalidraw .Modal__content{position:relative;z-index:2;width:100%;max-width:var(--max-width);max-height:100%;opacity:0;-webkit-transform:translateY(10px);transform:translateY(10px);-webkit-animation:Modal__content_fade-in .1s ease-out .05s forwards;animation:Modal__content_fade-in .1s ease-out .05s forwards;position:relative;overflow-y:auto;background:var(--island-bg-color);border:1px solid var(--dialog-border-color);box-shadow:0 2px 10px rgba(0,0,0,.25);border-radius:6px;box-sizing:border-box}.excalidraw .Modal__content:focus{outline:none}.excalidraw--mobile.excalidraw .Modal__content{max-width:100%;border:0;border-radius:0}@-webkit-keyframes Modal__content_fade-in{from{opacity:0;-webkit-transform:translateY(10px);transform:translateY(10px)}to{opacity:1;-webkit-transform:translateY(0);transform:translateY(0)}}@keyframes Modal__content_fade-in{from{opacity:0;-webkit-transform:translateY(10px);transform:translateY(10px)}to{opacity:1;-webkit-transform:translateY(0);transform:translateY(0)}}.excalidraw .Modal__close{width:calc(var(--space-factor)*7);height:calc(var(--space-factor)*7);display:flex;align-items:center;justify-content:center}.excalidraw .Modal__close svg{height:calc(var(--space-factor)*5)}.excalidraw--mobile.excalidraw .Modal{padding:0}.excalidraw--mobile.excalidraw .Modal__content{position:absolute;top:0;left:0;right:0;bottom:0}</style><style>:export{themeFilter:invert(93%) hue-rotate(180deg);rightSidebarWidth:302px}.excalidraw .ExportDialog__preview{--preview-padding: calc(var(--space-factor) * 4);background:url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAMUlEQVQ4T2NkYGAQYcAP3uCTZhw1gGGYhAGBZIA/nYDCgBDAm9BGDWAAJyRCgLaBCAAgXwixzAS0pgAAAABJRU5ErkJggg==) left center;text-align:center;padding:var(--preview-padding);margin-bottom:calc(var(--space-factor)*3)}.excalidraw .ExportDialog__preview canvas{max-width:calc(100% - var(--preview-padding)*2);max-height:25rem}.excalidraw.theme--dark .ExportDialog__preview canvas{-webkit-filter:none;filter:none}.excalidraw .ExportDialog__actions{width:100%;display:flex;grid-gap:calc(var(--space-factor)*2);align-items:top;justify-content:space-between}.excalidraw--mobile.excalidraw .ExportDialog{display:flex;flex-direction:column}.excalidraw--mobile.excalidraw .ExportDialog__actions{flex-direction:column;align-items:center}.excalidraw--mobile.excalidraw .ExportDialog__actions>*{margin-bottom:calc(var(--space-factor)*3)}.excalidraw--mobile.excalidraw .ExportDialog__preview canvas{max-height:30vh}.excalidraw--mobile.excalidraw .ExportDialog__dialog,.excalidraw--mobile.excalidraw .ExportDialog__dialog .Island{height:100%;box-sizing:border-box}.excalidraw--mobile.excalidraw .ExportDialog__dialog .Island{overflow-y:auto}.excalidraw .ExportDialog--json .ExportDialog-cards{display:grid;grid-template-columns:repeat(auto-fit, minmax(200px, 1fr));justify-items:center;row-gap:2em}@media(max-width: 460px){.excalidraw .ExportDialog--json .ExportDialog-cards{grid-template-columns:repeat(auto-fit, minmax(240px, 1fr))}.excalidraw .ExportDialog--json .ExportDialog-cards .Card-details{min-height:40px}}.excalidraw .ExportDialog--json .ExportDialog-cards .ProjectName{width:-webkit-fit-content;width:-moz-fit-content;width:fit-content;margin:1em auto;align-items:flex-start;flex-direction:column}.excalidraw .ExportDialog--json .ExportDialog-cards .ProjectName .TextInput{width:auto}.excalidraw .ExportDialog--json .ExportDialog-cards .ProjectName-label{margin:.625em 0;font-weight:bold}.excalidraw button.ExportDialog-imageExportButton{width:5rem;height:5rem;margin:0 .2em;border-radius:1rem;background-color:var(--button-color);box-shadow:0 3px 5px -1px rgba(0,0,0,.28),0 6px 10px 0 rgba(0,0,0,.14);font-family:Cascadia;font-size:1.8em;color:#fff}.excalidraw button.ExportDialog-imageExportButton:hover{background-color:var(--button-color-darker)}.excalidraw button.ExportDialog-imageExportButton:active{background-color:var(--button-color-darkest);box-shadow:none}.excalidraw button.ExportDialog-imageExportButton svg{width:.9em}</style><style>.excalidraw .FixedSideContainer{position:absolute;pointer-events:none}.excalidraw .FixedSideContainer>*{pointer-events:all}.excalidraw .FixedSideContainer_side_top{left:var(--space-factor);top:var(--space-factor);right:var(--space-factor);z-index:2}.excalidraw .FixedSideContainer_side_top.zen-mode{right:42px}</style><style>:export{themeFilter:invert(93%) hue-rotate(180deg);rightSidebarWidth:302px}.excalidraw .HintViewer{pointer-events:none;box-sizing:border-box;position:absolute;display:flex;justify-content:center;left:0;top:100%;max-width:100%;width:100%;margin-top:6px;text-align:center;color:#868e96;font-size:.8rem}.excalidraw--mobile.excalidraw .HintViewer{position:static;padding-right:2em}.excalidraw .HintViewer>span{padding:.2rem .4rem;background-color:var(--overlay-bg-color);border-radius:4px}</style><style>.excalidraw .Spinner{display:flex;align-items:center;justify-content:center;height:100%;margin-left:auto;margin-right:auto;--spinner-color: var(--icon-fill-color)}.excalidraw .Spinner svg{-webkit-animation:rotate 1.6s linear infinite;animation:rotate 1.6s linear infinite;-webkit-transform-origin:center center;transform-origin:center center}.excalidraw .Spinner circle{stroke:var(--spinner-color);-webkit-animation:dash 1.6s linear 0s infinite;animation:dash 1.6s linear 0s infinite;stroke-linecap:round}@-webkit-keyframes rotate{100%{-webkit-transform:rotate(360deg);transform:rotate(360deg)}}@keyframes rotate{100%{-webkit-transform:rotate(360deg);transform:rotate(360deg)}}@-webkit-keyframes dash{0%{stroke-dasharray:1,300;stroke-dashoffset:0}50%{stroke-dasharray:150,300;stroke-dashoffset:-200}100%{stroke-dasharray:1,300;stroke-dashoffset:-280}}@keyframes dash{0%{stroke-dasharray:1,300;stroke-dashoffset:0}50%{stroke-dasharray:150,300;stroke-dashoffset:-200}100%{stroke-dasharray:1,300;stroke-dashoffset:-280}}</style><style>.excalidraw .UserList{pointer-events:none;padding:var(--space-factor) var(--space-factor) var(--space-factor) var(--space-factor);display:flex;flex-wrap:wrap;justify-content:flex-end}.excalidraw .UserList:empty{display:none}.excalidraw .UserList>*{pointer-events:all;margin:0 0 var(--space-factor) var(--space-factor)}.excalidraw .UserList_mobile{padding:0;justify-content:normal}.excalidraw .UserList_mobile>*{margin:0 var(--space-factor) var(--space-factor) 0}</style><style>:export{themeFilter:invert(93%) hue-rotate(180deg);rightSidebarWidth:302px}.excalidraw--mobile.excalidraw .PasteChartDialog .Island{display:flex;flex-direction:column}.excalidraw .PasteChartDialog .container{display:flex;align-items:center;justify-content:space-around;flex-wrap:wrap}.excalidraw--mobile.excalidraw .PasteChartDialog .container{flex-direction:column;justify-content:center}.excalidraw .PasteChartDialog .ChartPreview{margin:8px;text-align:center;width:192px;height:128px;border-radius:2px;padding:1px;border:1px solid #ced4da;display:flex;align-items:center;justify-content:center;background:rgba(0,0,0,0)}.excalidraw .PasteChartDialog .ChartPreview div{display:inline-block}.excalidraw .PasteChartDialog .ChartPreview svg{max-height:120px;max-width:186px}.excalidraw .PasteChartDialog .ChartPreview:hover{padding:0;border:2px solid #339af0}</style><style>:export{themeFilter:invert(93%) hue-rotate(180deg);rightSidebarWidth:302px}.excalidraw .HelpDialog h3{border-bottom:1px solid var(--button-gray-2);padding-bottom:4px}.excalidraw .HelpDialog--island{border:1px solid var(--button-gray-2);margin-bottom:16px}.excalidraw .HelpDialog--island-title{margin:0;padding:4px;background-color:var(--button-gray-1);text-align:center}.excalidraw .HelpDialog--shortcut{border-top:1px solid var(--button-gray-2)}.excalidraw .HelpDialog--key{word-break:keep-all;border:1px solid var(--button-gray-2);padding:2px 8px;margin:auto 4px;background-color:var(--button-gray-1);border-radius:2px;font-size:.8em;min-height:26px;box-sizing:border-box;display:flex;align-items:center;font-family:inherit}.excalidraw .HelpDialog--header{display:flex;flex-direction:row;justify-content:space-evenly;margin-bottom:32px;padding-bottom:16px}.excalidraw .HelpDialog--btn{border:1px solid var(--link-color);padding:8px 32px;border-radius:4px}.excalidraw .HelpDialog--btn:hover{text-decoration:none}</style><style>:export{themeFilter:invert(93%) hue-rotate(180deg);rightSidebarWidth:302px}.excalidraw .Card{display:flex;flex-direction:column;align-items:center;max-width:290px;margin:1em;text-align:center}.excalidraw .Card .Card-icon{font-size:2.6em;display:flex;flex:0 0 auto;padding:1.4rem;border-radius:50%;background:var(--card-color);color:#fff}.excalidraw .Card .Card-icon svg{width:2.8rem;height:2.8rem}.excalidraw .Card .Card-details{font-size:.96em;min-height:90px;padding:0 1em;margin-bottom:auto}.excalidraw .Card .Card-button.ToolIcon_type_button{height:2.5rem;margin-top:1em;margin-bottom:.3em;background-color:var(--card-color)}.excalidraw .Card .Card-button.ToolIcon_type_button:hover{background-color:var(--card-color-darker)}.excalidraw .Card .Card-button.ToolIcon_type_button:active{background-color:var(--card-color-darkest)}.excalidraw .Card .Card-button.ToolIcon_type_button .ToolIcon__label{color:#fff}.excalidraw .Card .Card-button.ToolIcon_type_button .Spinner{--spinner-color: #fff}</style><style>:export{themeFilter:invert(93%) hue-rotate(180deg);rightSidebarWidth:302px}.excalidraw .publish-library__fields{display:flex;flex-direction:column}.excalidraw .publish-library__fields label{padding:1em;display:flex;justify-content:space-between;align-items:center}.excalidraw .publish-library__fields label span{font-weight:500;font-size:1rem;color:#868e96}.excalidraw .publish-library__fields label input,.excalidraw .publish-library__fields label textarea{width:70%;padding:.6em;font-family:var(--ui-font)}.excalidraw .publish-library__fields label .required{color:#e03131;margin:.2rem}.excalidraw .publish-library__buttons{display:flex;padding:.2rem 0;justify-content:flex-end}.excalidraw .publish-library__buttons .ToolIcon__icon{min-width:2.5rem;width:auto;font-size:1rem}.excalidraw .publish-library__buttons .ToolIcon_type_button{margin-left:1rem;padding:0 .5rem}.excalidraw .publish-library__buttons--confirm.ToolIcon_type_button{background-color:#228be6}.excalidraw .publish-library__buttons--confirm.ToolIcon_type_button:hover{background-color:#1971c2}.excalidraw .publish-library__buttons--cancel.ToolIcon_type_button{background-color:#adb5bd}.excalidraw .publish-library__buttons--cancel.ToolIcon_type_button:hover{background-color:#868e96}.excalidraw .publish-library__buttons .ToolIcon__icon{color:#fff}.excalidraw .publish-library__buttons .ToolIcon__icon .Spinner{--spinner-color: #fff}.excalidraw .publish-library__buttons .ToolIcon__icon .Spinner svg{padding:.5rem}.excalidraw .publish-library .selected-library-items{display:flex;padding:0 .8rem;flex-wrap:wrap}.excalidraw .publish-library .selected-library-items .single-library-item-wrapper{width:9rem}.excalidraw .publish-library-warning{color:#fa5252}.excalidraw .publish-library-note{padding:1em;font-style:italic;font-size:14px;display:block}</style><style>:export{themeFilter:invert(93%) hue-rotate(180deg);rightSidebarWidth:302px}.excalidraw .single-library-item{position:relative}.excalidraw .single-library-item-status{position:absolute;top:.3rem;left:.3rem;font-size:.7rem;color:#f03e3e;background:rgba(255,255,255,.9);padding:.1rem .2rem;border-radius:.2rem}.excalidraw .single-library-item__svg{background-color:#fff;padding:.3rem;width:7.5rem;height:7.5rem;border:1px solid var(--button-gray-2)}.excalidraw .single-library-item__svg svg{width:100%;height:100%}.excalidraw .single-library-item .ToolIcon__icon{background-color:#fff;width:auto;height:auto;margin:0 .5rem}.excalidraw .single-library-item .ToolIcon,.excalidraw .single-library-item .ToolIcon_type_button:hover{background-color:#fff}.excalidraw .single-library-item .required,.excalidraw .single-library-item .error{color:#e03131;font-weight:bold;font-size:1rem;margin:.2rem}.excalidraw .single-library-item .error{font-weight:500;margin:0;padding:.3em 0}.excalidraw .single-library-item--remove{position:absolute;top:.2rem;right:1rem}.excalidraw .single-library-item--remove .ToolIcon__icon{margin:0}.excalidraw .single-library-item--remove .ToolIcon__icon{background-color:#fa5252}.excalidraw .single-library-item--remove .ToolIcon__icon:hover{background-color:#f03e3e}.excalidraw .single-library-item--remove .ToolIcon__icon:active{background-color:#e03131}.excalidraw .single-library-item--remove svg{color:#fff;padding:.26rem;border-radius:.3em;width:1rem;height:1rem}</style><style>.excalidraw .layer-ui__library{display:flex;align-items:center;justify-content:center}.excalidraw .layer-ui__library .layer-ui__library-header{display:flex;align-items:center;width:100%;margin:2px 0 15px 0}.excalidraw .layer-ui__library .layer-ui__library-header .Spinner{margin-right:1rem}.excalidraw .layer-ui__library .layer-ui__library-header button{margin:0 2px}.excalidraw .layer-ui__sidebar .layer-ui__library{padding:0;height:100%}.excalidraw .layer-ui__sidebar .library-menu-items-container{height:100%;width:100%}.excalidraw .layer-ui__library-message{padding:2em 4em;min-width:200px;display:flex;flex-direction:column;align-items:center}.excalidraw .layer-ui__library-message .Spinner{margin-bottom:1em}.excalidraw .layer-ui__library-message span{font-size:.8em}.excalidraw .publish-library-success .Dialog__content{display:flex;flex-direction:column}.excalidraw .publish-library-success-close.ToolIcon_type_button{background-color:#228be6;align-self:flex-end}.excalidraw .publish-library-success-close.ToolIcon_type_button:hover{background-color:#1971c2}.excalidraw .publish-library-success-close.ToolIcon_type_button .ToolIcon__icon{width:auto;font-size:1rem;color:#fff;padding:0 .5rem}.excalidraw .library-menu-browse-button{width:80%;min-height:22px;margin:0 auto;margin-top:1rem;padding:10px;display:flex;align-items:center;justify-content:center;overflow:hidden;position:relative;border-radius:var(--border-radius-lg);background-color:var(--color-primary);color:#fff;text-align:center;white-space:nowrap;text-decoration:none !important}.excalidraw .library-menu-browse-button:hover{background-color:var(--color-primary-darker)}.excalidraw .library-menu-browse-button:active{background-color:var(--color-primary-darkest)}.excalidraw .library-menu-browse-button--mobile{min-height:22px;margin-left:auto}.excalidraw .library-menu-browse-button--mobile a{padding-right:0}</style><style>:export{themeFilter:invert(93%) hue-rotate(180deg);rightSidebarWidth:302px}.excalidraw .confirm-dialog-buttons{display:flex;padding:.2rem 0;justify-content:flex-end}.excalidraw .confirm-dialog .ToolIcon__icon{min-width:2.5rem;width:auto;font-size:1rem}.excalidraw .confirm-dialog .ToolIcon_type_button{margin-left:.8rem;padding:0 .5rem}.excalidraw .confirm-dialog__content{font-size:1rem}.excalidraw .confirm-dialog--confirm.ToolIcon_type_button{background-color:#fa5252}.excalidraw .confirm-dialog--confirm.ToolIcon_type_button:hover{background-color:#e03131}.excalidraw .confirm-dialog--confirm.ToolIcon_type_button .ToolIcon__icon{color:#fff}</style><style>:export{themeFilter:invert(93%) hue-rotate(180deg);rightSidebarWidth:302px}.excalidraw .library-unit{align-items:center;border:1px solid rgba(0,0,0,0);display:flex;justify-content:center;position:relative;width:63px;height:63px}.excalidraw .library-unit--hover{box-shadow:inset 0px 0px 0px 2px #339af0;border-color:#339af0}.excalidraw .library-unit--selected{box-shadow:inset 0px 0px 0px 2px #1971c2;border-color:#1971c2}.excalidraw .library-unit__dragger{display:flex;align-items:center;justify-content:center;height:100%;width:100%}.excalidraw .library-unit__dragger>svg{-webkit-filter:var(--theme-filter);filter:var(--theme-filter);flex-grow:1;max-height:100%;max-width:100%}.excalidraw .library-unit__checkbox-container,.excalidraw .library-unit__checkbox-container:hover,.excalidraw .library-unit__checkbox-container:active{align-items:center;background:none;border:none;color:var(--icon-fill-color);display:flex;justify-content:center;margin:0;padding:.5rem;position:absolute;left:2rem;bottom:2rem;cursor:pointer}.excalidraw .library-unit__checkbox-container input,.excalidraw .library-unit__checkbox-container:hover input,.excalidraw .library-unit__checkbox-container:active input{cursor:pointer}.excalidraw .library-unit__checkbox{position:absolute;left:2.3rem;bottom:2.3rem}.excalidraw .library-unit__checkbox .Checkbox-box{width:13px;height:13px;border-radius:2px;margin:.5em .5em .2em .2em;background-color:#d0ebff}.excalidraw .library-unit__checkbox.Checkbox:hover .Checkbox-box{background-color:#a5d8ff}.excalidraw .library-unit__removeFromLibrary>svg{height:16px;width:16px}.excalidraw .library-unit__adder{-webkit-transform:scale(1);transform:scale(1);-webkit-animation:library-unit__adder-animation 1s ease-in infinite;animation:library-unit__adder-animation 1s ease-in infinite}.excalidraw .library-unit__adder{position:absolute;left:40%;top:40%;width:2rem;height:2rem;margin-left:-10px;margin-top:-10px;pointer-events:none}.excalidraw .library-unit:hover .library-unit__adder{fill:#1c7ed6}.excalidraw .library-unit:active .library-unit__adder{-webkit-animation:none;animation:none;-webkit-transform:scale(0.8);transform:scale(0.8);fill:#000}.excalidraw .library-unit__active{cursor:pointer}@-webkit-keyframes library-unit__adder-animation{0%{-webkit-transform:scale(0.85);transform:scale(0.85)}50%{-webkit-transform:scale(1);transform:scale(1)}100%{-webkit-transform:scale(0.85);transform:scale(0.85)}}@keyframes library-unit__adder-animation{0%{-webkit-transform:scale(0.85);transform:scale(0.85)}50%{-webkit-transform:scale(1);transform:scale(1)}100%{-webkit-transform:scale(0.85);transform:scale(0.85)}}</style><style>.excalidraw .library-menu-items-container{display:flex;flex-direction:column;height:100%;padding:.5rem;box-sizing:border-box}.excalidraw .library-menu-items-container .library-actions{width:100%;display:flex;margin-right:auto;align-items:center}.excalidraw .library-menu-items-container .library-actions button .library-actions-counter{position:absolute;right:2px;bottom:2px;border-radius:50%;width:1em;height:1em;padding:1px;font-size:.7rem;background:#fff}.excalidraw .library-menu-items-container .library-actions--remove{background-color:#f03e3e}.excalidraw .library-menu-items-container .library-actions--remove:hover{background-color:#e03131}.excalidraw .library-menu-items-container .library-actions--remove:active{background-color:#c92a2a}.excalidraw .library-menu-items-container .library-actions--remove svg{color:#fff}.excalidraw .library-menu-items-container .library-actions--remove .library-actions-counter{color:#f03e3e}.excalidraw .library-menu-items-container .library-actions--export{background-color:#94d82d}.excalidraw .library-menu-items-container .library-actions--export:hover{background-color:#74b816}.excalidraw .library-menu-items-container .library-actions--export:active{background-color:#66a80f}.excalidraw .library-menu-items-container .library-actions--export svg{color:#fff}.excalidraw .library-menu-items-container .library-actions--export .library-actions-counter{color:#94d82d}.excalidraw .library-menu-items-container .library-actions--publish{background-color:#15aabf}.excalidraw .library-menu-items-container .library-actions--publish:hover{background-color:#1098ad}.excalidraw .library-menu-items-container .library-actions--publish:active{background-color:#0b7285}.excalidraw .library-menu-items-container .library-actions--publish svg{color:#fff}.excalidraw .library-menu-items-container .library-actions--publish label{margin-left:-0.2em;margin-right:1.1em;color:#fff;font-size:.86em}.excalidraw .library-menu-items-container .library-actions--publish .library-actions-counter{color:#15aabf}.excalidraw .library-menu-items-container .library-actions--load{background-color:#228be6}.excalidraw .library-menu-items-container .library-actions--load:hover{background-color:#1c7ed6}.excalidraw .library-menu-items-container .library-actions--load:active{background-color:#1864ab}.excalidraw .library-menu-items-container .library-actions--load svg{color:#fff}.excalidraw .library-menu-items-container__items{flex:1;overflow-y:auto;overflow-x:hidden;margin-bottom:1rem}.excalidraw .library-menu-items-container .separator{width:100%;display:flex;align-items:center;font-weight:500;font-size:.9rem;margin:.6em .2em;color:var(--text-primary-color)}</style><style>:export{themeFilter:invert(93%) hue-rotate(180deg);rightSidebarWidth:302px}.excalidraw .layer-ui__sidebar-lock-button{margin-right:.2rem}.excalidraw .layer-ui__sidebar-lock-button .ToolIcon_type_radio+.ToolIcon__icon:active,.excalidraw .layer-ui__sidebar-lock-button .ToolIcon_type_checkbox+.ToolIcon__icon:active{background:var(--color-primary-light)}.excalidraw .layer-ui__sidebar-lock-button .ToolIcon_type_radio:checked+.ToolIcon__icon,.excalidraw .layer-ui__sidebar-lock-button .ToolIcon_type_checkbox:checked+.ToolIcon__icon{background:var(--color-primary);--icon-fill-color: #ffffff;--keybinding-color: #ffffff}.excalidraw .layer-ui__sidebar-lock-button .ToolIcon_type_radio:checked+.ToolIcon__icon:active,.excalidraw .layer-ui__sidebar-lock-button .ToolIcon_type_checkbox:checked+.ToolIcon__icon:active{background:var(--color-primary-darker)}.excalidraw .layer-ui__sidebar-lock-button .ToolIcon__keybinding{bottom:4px;right:4px}.excalidraw .ToolIcon_type_floating .side_lock_icon{width:calc(var(--space-factor)*7);height:calc(var(--space-factor)*7)}.excalidraw .ToolIcon_type_floating .side_lock_icon svg{-webkit-transform:scale(-1, 1);transform:scale(-1, 1)}.excalidraw .ToolIcon_type_checkbox:not(.ToolIcon_toggle_opaque):checked+.side_lock_icon{background-color:var(--color-primary)}</style><style>:export{themeFilter:invert(93%) hue-rotate(180deg);rightSidebarWidth:302px}.layer-ui__sidebar{position:absolute;top:var(--sat);bottom:var(--sab);right:var(--sar);z-index:5;box-shadow:var(--shadow-island);overflow:hidden;border-radius:var(--border-radius-lg);margin:var(--space-factor);width:calc(302px - var(--space-factor) * 2)}.layer-ui__sidebar .Island{box-shadow:none}.layer-ui__sidebar .ToolIcon__icon{border-radius:var(--border-radius-md)}.layer-ui__sidebar .ToolIcon__icon__close .Modal__close{width:calc(var(--space-factor)*7);height:calc(var(--space-factor)*7);display:flex;justify-content:center;align-items:center;color:var(--color-text)}.layer-ui__sidebar .Island{--padding: 0;background-color:var(--island-bg-color);border-radius:var(--border-radius-lg);padding:calc(var(--padding)*var(--space-factor));position:relative;transition:box-shadow .5s ease-in-out}.excalidraw .layer-ui__wrapper.animate{transition:width .1s ease-in-out}.excalidraw .layer-ui__wrapper{position:absolute;width:100%;height:100%;pointer-events:none;z-index:var(--zIndex-layerUI)}.excalidraw .layer-ui__wrapper__top-right{display:flex}.excalidraw .layer-ui__wrapper__footer{width:100%}.excalidraw .layer-ui__wrapper__footer-right{z-index:100;display:flex}.excalidraw .layer-ui__wrapper .zen-mode-transition{transition:-webkit-transform .5s ease-in-out;transition:transform .5s ease-in-out;transition:transform .5s ease-in-out, -webkit-transform .5s ease-in-out}:root[dir=ltr] .excalidraw .layer-ui__wrapper .zen-mode-transition.transition-left{-webkit-transform:translate(-999px, 0);transform:translate(-999px, 0)}:root[dir=ltr] .excalidraw .layer-ui__wrapper .zen-mode-transition.transition-right{-webkit-transform:translate(999px, 0);transform:translate(999px, 0)}:root[dir=rtl] .excalidraw .layer-ui__wrapper .zen-mode-transition.transition-left{-webkit-transform:translate(999px, 0);transform:translate(999px, 0)}:root[dir=rtl] .excalidraw .layer-ui__wrapper .zen-mode-transition.transition-right{-webkit-transform:translate(-999px, 0);transform:translate(-999px, 0)}:root[dir=ltr] .excalidraw .layer-ui__wrapper .zen-mode-transition.layer-ui__wrapper__footer-left--transition-left{-webkit-transform:translate(-76px, 0);transform:translate(-76px, 0)}:root[dir=rtl] .excalidraw .layer-ui__wrapper .zen-mode-transition.layer-ui__wrapper__footer-left--transition-left{-webkit-transform:translate(76px, 0);transform:translate(76px, 0)}.excalidraw .layer-ui__wrapper .zen-mode-transition.layer-ui__wrapper__footer-left--transition-bottom{-webkit-transform:translate(0, 92px);transform:translate(0, 92px)}.excalidraw .layer-ui__wrapper .disable-zen-mode{height:30px;position:absolute;bottom:10px;font-size:10px;padding:10px;font-weight:500;opacity:0;visibility:hidden;transition:visibility 0s linear 0s,opacity .5s}[dir=ltr] .excalidraw .layer-ui__wrapper .disable-zen-mode{right:15px}[dir=rtl] .excalidraw .layer-ui__wrapper .disable-zen-mode{left:15px}.excalidraw .layer-ui__wrapper .disable-zen-mode--visible{opacity:1;visibility:visible;transition:visibility 0s linear 300ms,opacity .5s;transition-delay:.8s}.excalidraw .layer-ui__wrapper .layer-ui__wrapper__footer-center{pointer-events:none}.excalidraw .layer-ui__wrapper .layer-ui__wrapper__footer-center>*{pointer-events:all}.excalidraw .layer-ui__wrapper .layer-ui__wrapper__footer-left,.excalidraw .layer-ui__wrapper .layer-ui__wrapper__footer-right,.excalidraw .layer-ui__wrapper .disable-zen-mode--visible{pointer-events:all}.excalidraw .layer-ui__wrapper .layer-ui__wrapper__footer-left{margin-bottom:.2em}.excalidraw .layer-ui__wrapper .layer-ui__wrapper__footer-right{margin-top:auto;margin-bottom:auto;-webkit-margin-end:1em;margin-inline-end:1em}</style><style>:export{themeFilter:invert(93%) hue-rotate(180deg);rightSidebarWidth:302px}.excalidraw .App-toolbar-container .ToolIcon_type_floating .ToolIcon_type_radio+.ToolIcon__icon:active,.excalidraw .App-toolbar-container .ToolIcon_type_floating .ToolIcon_type_checkbox+.ToolIcon__icon:active{background:var(--color-primary-light)}.excalidraw .App-toolbar-container .ToolIcon_type_floating .ToolIcon_type_radio:checked+.ToolIcon__icon,.excalidraw .App-toolbar-container .ToolIcon_type_floating .ToolIcon_type_checkbox:checked+.ToolIcon__icon{background:var(--color-primary);--icon-fill-color: #ffffff;--keybinding-color: #ffffff}.excalidraw .App-toolbar-container .ToolIcon_type_floating .ToolIcon_type_radio:checked+.ToolIcon__icon:active,.excalidraw .App-toolbar-container .ToolIcon_type_floating .ToolIcon_type_checkbox:checked+.ToolIcon__icon:active{background:var(--color-primary-darker)}.excalidraw .App-toolbar-container .ToolIcon_type_floating .ToolIcon__keybinding{bottom:4px;right:4px}.excalidraw .App-toolbar-container .ToolIcon_type_floating:not(.is-mobile) .ToolIcon__icon{padding:1px;background-color:var(--island-bg-color);box-shadow:1px 3px 4px 0px rgba(0,0,0,.15);border-radius:50%;transition:box-shadow .5s ease,-webkit-transform .5s ease;transition:box-shadow .5s ease,transform .5s ease;transition:box-shadow .5s ease,transform .5s ease,-webkit-transform .5s ease}.excalidraw .App-toolbar-container .ToolIcon_type_floating .ToolIcon_type_radio:focus-within+.ToolIcon__icon,.excalidraw .App-toolbar-container .ToolIcon_type_floating .ToolIcon_type_checkbox:focus-within+.ToolIcon__icon{box-shadow:0 0 0 2px var(--focus-highlight-color)}.excalidraw .App-toolbar-container .ToolIcon__hidden{box-shadow:none !important;background-color:rgba(0,0,0,0) !important;pointer-events:none !important}.excalidraw .App-toolbar-container .ToolIcon.ToolIcon__lock.ToolIcon_type_floating{margin-left:.1rem}.excalidraw .App-toolbar-container .ToolIcon__library{-webkit-margin-start:var(--space-factor);margin-inline-start:var(--space-factor)}.excalidraw .App-toolbar-container.zen-mode .ToolIcon_type_floating .ToolIcon__icon{box-shadow:none;-webkit-transform:scale(0.9);transform:scale(0.9)}.excalidraw .App-toolbar-container.zen-mode .ToolIcon_type_floating .ToolIcon_type_checkbox:not(:checked):not(:hover):not(:active)+.ToolIcon__icon svg{fill:#adb5bd;color:#adb5bd}.excalidraw .App-toolbar{border-radius:var(--border-radius-lg);box-shadow:0 0 0 1px rgba(0,0,0,.01),1px 1px 5px rgba(0,0,0,.15)}.excalidraw .App-toolbar .ToolIcon:hover{--icon-fill-color: var( --color-primary-contrast-offset, var(--color-primary) );--keybinding-color: var( --color-primary-contrast-offset, var(--color-primary) )}.excalidraw .App-toolbar .ToolIcon:active{--icon-fill-color: #212529;--keybinding-color: #212529}.excalidraw .App-toolbar .ToolIcon .ToolIcon__icon{background:rgba(0,0,0,0);border-radius:var(--border-radius-lg)}.excalidraw .App-toolbar .ToolIcon .ToolIcon_type_radio+.ToolIcon__icon:active,.excalidraw .App-toolbar .ToolIcon .ToolIcon_type_checkbox+.ToolIcon__icon:active{background:var(--color-primary-light)}.excalidraw .App-toolbar .ToolIcon .ToolIcon_type_radio:checked+.ToolIcon__icon,.excalidraw .App-toolbar .ToolIcon .ToolIcon_type_checkbox:checked+.ToolIcon__icon{background:var(--color-primary);--icon-fill-color: #ffffff;--keybinding-color: #ffffff}.excalidraw .App-toolbar .ToolIcon .ToolIcon_type_radio:checked+.ToolIcon__icon:active,.excalidraw .App-toolbar .ToolIcon .ToolIcon_type_checkbox:checked+.ToolIcon__icon:active{background:var(--color-primary-darker)}.excalidraw .App-toolbar .ToolIcon .ToolIcon__keybinding{bottom:4px;right:4px}.excalidraw .App-toolbar.zen-mode .ToolIcon__keybinding,.excalidraw .App-toolbar.zen-mode .HintViewer{display:none}.excalidraw.theme--dark .App-toolbar .ToolIcon:active{--icon-fill-color: #dee2e6;--keybinding-color: #dee2e6}</style><style>:export{themeFilter:invert(93%) hue-rotate(180deg);rightSidebarWidth:302px}.excalidraw .Stats{position:absolute;top:64px;right:12px;font-size:12px;z-index:10;pointer-events:all}.excalidraw .Stats h3{margin:0 24px 8px 0;white-space:nowrap}.excalidraw .Stats .close{float:right;height:16px;width:16px;cursor:pointer}.excalidraw .Stats .close svg{width:100%;height:100%}.excalidraw .Stats table{width:100%}.excalidraw .Stats table th{border-bottom:1px solid var(--input-border-color);padding:4px}.excalidraw .Stats table tr td:nth-child(2){min-width:24px;text-align:right}:root[dir=rtl] .excalidraw .Stats{left:12px;right:initial}:root[dir=rtl] .excalidraw .Stats h3{margin:0 0 8px 24px}:root[dir=rtl] .excalidraw .Stats .close{float:left}</style><style>:export{themeFilter:invert(93%) hue-rotate(180deg);rightSidebarWidth:302px}.excalidraw .Toast{-webkit-animation:fade-in .5s;animation:fade-in .5s;background-color:var(--button-gray-1);border-radius:4px;bottom:10px;box-sizing:border-box;cursor:default;left:50%;margin-left:-150px;padding:4px 0;position:absolute;text-align:center;width:300px;z-index:999999}.excalidraw .Toast .Toast__message{padding:0 1.6rem;color:var(--popup-text-color);white-space:pre-wrap}.excalidraw .Toast .close{position:absolute;top:0;right:0;padding:.4rem}.excalidraw .Toast .close .ToolIcon__icon{width:1.2rem;height:1.2rem}@-webkit-keyframes fade-in{from{opacity:0}to{opacity:1}}@keyframes fade-in{from{opacity:0}to{opacity:1}}</style><style>.visually-hidden{position:absolute !important;height:1px;width:1px;overflow:hidden;clip:rect(1px, 1px, 1px, 1px);white-space:nowrap;-webkit-user-select:none;user-select:none}.LoadingMessage{position:absolute;top:0;right:0;bottom:0;left:0;z-index:999;display:flex;flex-direction:column;align-items:center;justify-content:center;pointer-events:none}.LoadingMessage .Spinner{font-size:2.8em}.LoadingMessage .LoadingMessage-text{margin-top:1em;font-size:.8em}</style><style>:export{themeFilter:invert(93%) hue-rotate(180deg);rightSidebarWidth:302px}:export{themeFilter:invert(93%) hue-rotate(180deg);rightSidebarWidth:302px}.excalidraw{--theme-filter: none;--button-destructive-bg-color: #ffe3e3;--button-destructive-color: #c92a2a;--button-gray-1: #e9ecef;--button-gray-2: #ced4da;--button-gray-3: #adb5bd;--button-special-active-bg-color: #ebfbee;--dialog-border-color: #868e96;--dropdown-icon: url("data:image/svg+xml,<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"292.4\" height=\"292.4\" viewBox=\"0 0 292 292\"><path d=\"M287 197L159 69c-4-3-8-5-13-5s-9 2-13 5L5 197c-3 4-5 8-5 13s2 9 5 13c4 4 8 5 13 5h256c5 0 9-1 13-5s5-8 5-13-1-9-5-13z\"/></svg>");--focus-highlight-color: #a5d8ff;--icon-fill-color: #212529;--icon-green-fill-color: #2b8a3e;--default-bg-color: #ffffff;--input-bg-color: #ffffff;--input-border-color: #ced4da;--input-hover-bg-color: #f1f3f5;--input-label-color: #495057;--island-bg-color: rgba(255, 255, 255, 0.96);--keybinding-color: #adb5bd;--link-color: #1c7ed6;--overlay-bg-color: rgba(255, 255, 255, 0.88);--popup-bg-color: #ffffff;--popup-secondary-bg-color: #f1f3f5;--popup-text-color: #000000;--popup-text-inverted-color: #ffffff;--sab: env(safe-area-inset-bottom);--sal: env(safe-area-inset-left);--sar: env(safe-area-inset-right);--sat: env(safe-area-inset-top);--select-highlight-color: #339af0;--shadow-island: 0 0 0 1px rgba(0, 0, 0, 0.01), 1px 1px 5px rgb(0 0 0 / 12%);--space-factor: 0.25rem;--text-primary-color: #343a40;--color-primary: #6965db;--color-primary-darker: #5b57d1;--color-primary-darkest: #4a47b1;--color-primary-light: #e2e1fc;--border-radius-md: 0.375rem;--border-radius-lg: 0.5rem}.excalidraw.theme--dark{background:#000}.excalidraw.theme--dark.theme--dark-background-none{background:none}.excalidraw.theme--dark{--theme-filter: invert(93%) hue-rotate(180deg);--button-destructive-bg-color: #5a0000;--button-destructive-color: #ffa8a8;--button-gray-1: #363636;--button-gray-2: #272727;--button-gray-3: #222;--button-special-active-bg-color: #204624;--dialog-border-color: #212529;--dropdown-icon: url("data:image/svg+xml,<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"292.4\" height=\"292.4\" viewBox=\"0 0 292 292\"><path fill=\"%23ced4da\" d=\"M287 197L159 69c-4-3-8-5-13-5s-9 2-13 5L5 197c-3 4-5 8-5 13s2 9 5 13c4 4 8 5 13 5h256c5 0 9-1 13-5s5-8 5-13-1-9-5-13z\"/></svg>");--focus-highlight-color: #228be6;--icon-fill-color: #ced4da;--icon-green-fill-color: #69db7c;--default-bg-color: #121212;--input-bg-color: #121212;--input-border-color: #2e2e2e;--input-hover-bg-color: #181818;--input-label-color: #e9ecef;--island-bg-color: rgba(30, 30, 30, 0.98);--keybinding-color: #868e96;--link-color: #4dabf7;--overlay-bg-color: rgba(52, 58, 64, 0.12);--popup-bg-color: #2c2c2c;--popup-secondary-bg-color: #222;--popup-text-color: #ced4da;--popup-text-inverted-color: #2c2c2c;--select-highlight-color: #4dabf7;--shadow-island: 1px 1px 5px rgba(0, 0, 0, 0.3);--text-primary-color: #ced4da;--color-primary: #5650f0;--color-primary-darker: #4b46d8;--color-primary-darkest: #3e39be;--color-primary-light: #3f3d64}:root{--zIndex-canvas: 1;--zIndex-wysiwyg: 2;--zIndex-layerUI: 3}.excalidraw{position:relative;overflow:hidden;color:var(--text-primary-color);display:flex;top:0;bottom:0;left:0;right:0;height:100%;width:100%;-webkit-user-select:none;user-select:none}.excalidraw:focus{outline:none}.excalidraw a{font-weight:500;text-decoration:none;color:var(--link-color)}.excalidraw a:hover{text-decoration:underline}.excalidraw canvas{touch-action:none;image-rendering:pixelated;image-rendering:-moz-crisp-edges;z-index:var(--zIndex-canvas)}.excalidraw__canvas{position:absolute}.excalidraw.theme--dark canvas{-webkit-filter:var(--theme-filter);filter:var(--theme-filter)}.excalidraw .FixedSideContainer{padding-top:var(--sat, 0);padding-right:var(--sar, 0);padding-bottom:var(--sab, 0);padding-left:var(--sal, 0)}.excalidraw .panelRow{display:flex;justify-content:space-between}.excalidraw .panelColumn{display:flex;flex-direction:column;text-align:left}.excalidraw .panelColumn h3,.excalidraw .panelColumn legend,.excalidraw .panelColumn .control-label{margin-top:.333rem;margin-bottom:.333rem;font-size:.75rem;color:var(--text-primary-color);font-weight:bold;display:block}.excalidraw .panelColumn .control-label input{display:block;width:100%}.excalidraw .panelColumn h3:first-child,.excalidraw .panelColumn legend:first-child,.excalidraw .panelColumn .control-label:first-child{margin-top:0}.excalidraw .panelColumn legend{padding:0}.excalidraw .panelColumn .iconSelectList{flex-wrap:wrap;position:relative}.excalidraw .panelColumn .buttonList{flex-wrap:wrap;text-align:left}.excalidraw .panelColumn .buttonList label{margin-right:.25rem;font-size:.75rem;display:inline-block}.excalidraw .panelColumn .buttonList input[type=radio],.excalidraw .panelColumn .buttonList input[type=button]{opacity:0;position:absolute;pointer-events:none}.excalidraw .panelColumn .buttonList .iconRow{margin-top:8px}.excalidraw .panelColumn .buttonList .ToolIcon{margin:0;-webkit-margin-end:8px;margin-inline-end:8px}.excalidraw .panelColumn .buttonList .ToolIcon:focus{outline:rgba(0,0,0,0);box-shadow:0 0 0 2px var(--focus-highlight-color)}.excalidraw .panelColumn .buttonList .ToolIcon:hover{background-color:var(--button-gray-2)}.excalidraw .panelColumn .buttonList .ToolIcon:active{background-color:var(--button-gray-3)}.excalidraw .panelColumn .buttonList .ToolIcon:disabled{cursor:not-allowed}.excalidraw .panelColumn .buttonList .ToolIcon__icon{width:28px;height:28px}.excalidraw .panelColumn fieldset{margin:0;margin-top:.333rem;padding:0;border:none}.excalidraw .divider{width:1px;background-color:#e9ecef;margin:1px}.excalidraw .buttonList label:focus-within,.excalidraw input:focus-visible{outline:rgba(0,0,0,0);box-shadow:0 0 0 2px var(--focus-highlight-color)}.excalidraw button,.excalidraw .buttonList label{-webkit-user-select:none;user-select:none;background-color:var(--button-gray-1);border:0;border-radius:var(--border-radius-md);margin:.125rem 0;padding:.25rem;white-space:nowrap;cursor:pointer}.excalidraw button:focus-visible,.excalidraw .buttonList label:focus-visible{outline:rgba(0,0,0,0);box-shadow:0 0 0 2px var(--focus-highlight-color)}.excalidraw button:hover,.excalidraw .buttonList label:hover{background-color:var(--button-gray-2)}.excalidraw button:active,.excalidraw .buttonList label:active{background-color:var(--button-gray-3)}.excalidraw button:disabled,.excalidraw .buttonList label:disabled{cursor:not-allowed}.excalidraw .active,.excalidraw .buttonList label.active{background-color:var(--color-primary);--icon-fill-color: #ffffff}.excalidraw .active:hover,.excalidraw .buttonList label.active:hover{background-color:var(--color-primary-darker)}.excalidraw .active:active,.excalidraw .buttonList label.active:active{background-color:var(--color-primary-darkest)}.excalidraw .buttonList.buttonListIcon label{display:inline-flex;justify-content:center;align-items:center}.excalidraw .buttonList.buttonListIcon label svg{width:35px;height:14px;padding:2px;opacity:.6}.excalidraw .buttonList.buttonListIcon label.active svg{opacity:1}.excalidraw .App-top-bar{z-index:var(--zIndex-layerUI);display:flex;flex-direction:column;align-items:center}.excalidraw .App-bottom-bar{position:absolute;top:0;bottom:0;left:0;right:0;--bar-padding: calc(4 * var(--space-factor));padding-top:max(var(--bar-padding), var(--sat,0));padding-right:var(--sar, 0);padding-bottom:var(--sab, 0);padding-left:var(--sal, 0);z-index:4;display:flex;align-items:flex-end;pointer-events:none}.excalidraw .App-bottom-bar>.Island{width:100%;max-width:100%;min-width:100%;box-sizing:border-box;max-height:100%;display:flex;flex-direction:column;pointer-events:initial}.excalidraw .App-bottom-bar>.Island .panelColumn{padding:8px 8px 0 8px}.excalidraw .App-toolbar{width:100%;box-sizing:border-box}.excalidraw .App-toolbar .eraser.ToolIcon:hover{--icon-fill-color: #fff;--keybinding-color: #fff}.excalidraw .App-toolbar .eraser.active{background-color:var(--color-primary)}.excalidraw .App-toolbar-content{display:flex;align-items:center;justify-content:space-between;padding:8px}.excalidraw .App-mobile-menu{width:100%;overflow-x:visible;overflow-y:auto;box-sizing:border-box;margin-bottom:var(--bar-padding)}.excalidraw .App-menu{display:grid;color:var(--icon-fill-color)}.excalidraw .App-menu_top{grid-template-columns:auto -webkit-max-content auto;grid-template-columns:auto max-content auto;grid-gap:4px;align-items:flex-start;cursor:default;pointer-events:none !important}.excalidraw .layer-ui__wrapper:not(.disable-pointerEvents) .App-menu_top>*{pointer-events:all}.excalidraw .App-menu_top>*:first-child{justify-self:flex-start}.excalidraw .App-menu_top>*:last-child{justify-self:flex-end}.excalidraw .App-menu_bottom{position:absolute;bottom:0;grid-template-columns:-webkit-min-content auto -webkit-min-content;grid-template-columns:min-content auto min-content;grid-gap:15px;align-items:flex-start;cursor:default;pointer-events:none !important}:root[dir=ltr] .excalidraw .App-menu_bottom{left:.25rem}:root[dir=rtl] .excalidraw .App-menu_bottom{right:.25rem}.excalidraw .App-menu_bottom--transition-left section{width:185px}.excalidraw .App-menu_bottom section{display:flex}.excalidraw .App-menu_bottom>*:first-child{justify-self:flex-start}.excalidraw .App-menu_bottom>*:last-child{justify-self:flex-end}.excalidraw .App-menu_left{grid-template-rows:1fr auto 1fr;height:100%}.excalidraw .App-menu_right{grid-template-rows:1fr;height:100%}.excalidraw .App-menu__left{box-shadow:var(--shadow-island)}.excalidraw .dropdown-select{height:1.5rem;padding:0;-webkit-padding-start:.5rem;padding-inline-start:.5rem;-webkit-padding-end:1.5rem;padding-inline-end:1.5rem;color:var(--icon-fill-color);background-color:var(--button-gray-1);border-radius:var(--space-factor);border:1px solid var(--button-gray-2);font-size:.8rem;outline:none;-webkit-appearance:none;appearance:none;background-image:var(--dropdown-icon);background-repeat:no-repeat;background-position:right .7rem top 50%,0 0;background-size:.65em auto,100%}:root[dir=rtl] .excalidraw .dropdown-select{background-position:left .7rem top 50%,0 0}.excalidraw .dropdown-select:focus{box-shadow:0 0 0 2px var(--focus-highlight-color)}.excalidraw .dropdown-select:hover{background-color:var(--button-gray-2)}.excalidraw .dropdown-select:active{background-color:var(--button-gray-2)}.excalidraw .zIndexButton{margin:0;-webkit-margin-end:8px;margin-inline-end:8px;padding:5px;display:inline-flex;align-items:center;justify-content:center}.excalidraw .zIndexButton svg{width:18px;height:18px}.excalidraw .scroll-back-to-content{color:var(--popup-text-color);position:absolute;left:50%;bottom:30px;-webkit-transform:translateX(-50%);transform:translateX(-50%);padding:10px 20px;pointer-events:all}.excalidraw .help-icon{display:flex;cursor:pointer;fill:#868e96;padding:0;margin:0;background:none;color:var(--icon-fill-color)}.excalidraw .help-icon svg{width:1.5rem;height:1.5rem}.excalidraw .help-icon:hover{background:none}.excalidraw .reset-zoom-button{padding:.2em;background:rgba(0,0,0,0);color:var(--text-primary-color);font-family:var(--ui-font)}.excalidraw .finalize-button{display:grid;grid-auto-flow:column;gap:.4em;margin-top:auto;margin-bottom:auto;-webkit-margin-start:.6em;margin-inline-start:.6em}.excalidraw .undo-redo-buttons,.excalidraw .eraser-buttons{display:grid;grid-auto-flow:column;gap:.4em;margin-top:auto;margin-bottom:auto;-webkit-margin-start:.6em;margin-inline-start:.6em}.excalidraw--mobile.excalidraw aside{display:none}.excalidraw--mobile.excalidraw .scroll-back-to-content{bottom:calc(80px + var(--sab, 0));z-index:-1}:root[dir=rtl] .excalidraw .rtl-mirror{-webkit-transform:scaleX(-1);transform:scaleX(-1)}.excalidraw .zen-mode-visibility{visibility:visible;opacity:1;height:auto;width:auto;transition:opacity .5s}.excalidraw .zen-mode-visibility.zen-mode-visibility--hidden{visibility:hidden;opacity:0;height:0;width:0;transition:opacity .5s}.excalidraw .disable-pointerEvents{pointer-events:none !important}.excalidraw.excalidraw--view-mode .App-menu{display:flex;justify-content:space-between}.excalidraw input[type=text],.excalidraw textarea:not(.excalidraw-wysiwyg){color:var(--text-primary-color);border:1.5px solid var(--input-border-color);padding:.75rem;white-space:nowrap;border-radius:var(--space-factor);background-color:var(--input-bg-color)}.excalidraw input[type=text]:not(:focus):hover,.excalidraw textarea:not(.excalidraw-wysiwyg):not(:focus):hover{background-color:var(--input-hover-bg-color)}.excalidraw input[type=text]:focus,.excalidraw textarea:not(.excalidraw-wysiwyg):focus{outline:none;box-shadow:0 0 0 2px var(--focus-highlight-color)}@media print{.excalidraw .App-bottom-bar,.excalidraw .FixedSideContainer,.excalidraw .layer-ui__wrapper{display:none}}.excalidraw ::-webkit-scrollbar{width:5px}.excalidraw ::-webkit-scrollbar-thumb{background:var(--button-gray-2);border-radius:10px}.excalidraw ::-webkit-scrollbar-thumb:hover{background:var(--button-gray-3)}.excalidraw ::-webkit-scrollbar-thumb:active{background:var(--button-gray-2)}.ErrorSplash.excalidraw{min-height:100vh;padding:20px 0;overflow:auto;display:flex;align-items:center;justify-content:center;-webkit-user-select:text;user-select:text}.ErrorSplash.excalidraw .ErrorSplash-messageContainer{display:flex;flex-direction:column;align-items:center;justify-content:center;padding:40px;background-color:#ffe3e3;border:3px solid #c92a2a}.ErrorSplash.excalidraw .ErrorSplash-paragraph{margin:15px 0;max-width:600px}.ErrorSplash.excalidraw .ErrorSplash-paragraph.align-center{text-align:center}.ErrorSplash.excalidraw .bigger,.ErrorSplash.excalidraw .bigger button{font-size:1.1em}.ErrorSplash.excalidraw .smaller,.ErrorSplash.excalidraw .smaller button{font-size:.9em}.ErrorSplash.excalidraw .ErrorSplash-details{display:flex;flex-direction:column;align-items:flex-start}.ErrorSplash.excalidraw .ErrorSplash-details textarea{width:100%;margin:10px 0;font-family:"Cascadia";font-size:.8em}</style><style>:export{themeFilter:invert(93%) hue-rotate(180deg);rightSidebarWidth:302px}.excalidraw .RoomDialog-linkContainer{display:flex;margin:1.5em 0}.excalidraw input.RoomDialog-link{color:var(--text-primary-color);min-width:0;flex:1 1 auto;-webkit-margin-start:1em;margin-inline-start:1em;display:inline-block;cursor:pointer;border:none;padding:0 .5rem;white-space:nowrap;border-radius:var(--space-factor);background-color:var(--button-gray-1)}.excalidraw .RoomDialog-emoji{font-family:sans-serif}.excalidraw .RoomDialog-usernameContainer{display:flex;margin:1.5em 0;display:flex;align-items:center;justify-content:center}.excalidraw--mobile.excalidraw .RoomDialog-usernameContainer{flex-direction:column;align-items:stretch}.excalidraw--mobile.excalidraw .RoomDialog-usernameLabel{font-weight:bold}.excalidraw .RoomDialog-username{background-color:var(--input-bg-color);border-color:var(--input-border-color);-webkit-appearance:none;appearance:none;min-width:0;flex:1 1 auto;-webkit-margin-start:1em;margin-inline-start:1em;font-size:1em}.excalidraw--mobile.excalidraw .RoomDialog-username{margin-top:.5em;-webkit-margin-start:0;margin-inline-start:0}.excalidraw .RoomDialog-sessionStartButtonContainer{display:flex;justify-content:center}.excalidraw .Modal .RoomDialog-stopSession{background-color:var(--button-destructive-bg-color)}.excalidraw .Modal .RoomDialog-stopSession .ToolIcon__label,.excalidraw .Modal .RoomDialog-stopSession .ToolIcon__icon svg{color:var(--button-destructive-color)}</style><style>.excalidraw{--color-primary-contrast-offset: #625ee0}.excalidraw.theme--dark{--color-primary-contrast-offset: #726dff}.excalidraw .layer-ui__wrapper__footer-center{display:flex;justify-content:space-between;margin-top:auto;margin-bottom:auto;-webkit-margin-start:auto;margin-inline-start:auto}.excalidraw .encrypted-icon{border-radius:var(--space-factor);color:var(--color-primary);margin-top:auto;margin-bottom:auto;-webkit-margin-start:auto;margin-inline-start:auto;-webkit-margin-end:.6em;margin-inline-end:.6em}.excalidraw .encrypted-icon svg{width:1.2rem;height:1.2rem}.excalidraw-app.is-collaborating [data-testid=clear-canvas-button]{visibility:hidden;pointer-events:none}.plus-button{display:flex;justify-content:center;cursor:pointer;align-items:center;border:1px solid var(--color-primary);padding:.6em .7em;border-radius:var(--space-factor);color:var(--color-primary) !important;margin:8px;text-decoration:none !important}.plus-button:hover{background-color:var(--color-primary);color:#fff !important}.plus-button:active{background-color:var(--color-primary-darker)}</style>
+    <title>Meet-Yard</title>
+<meta property="og:title" content="Meet-Yard">
+<meta property="og:image" content="images/watermark.png?v=1">
+<meta property="og:description" content="Join your favourite conference from anywhere. Powered by Meet-Yard.">
+<meta description="Join your favourite conference from anywhere. Powered by Meet-Yard.">
+<meta itemprop="name" content="Meet-Yard">
+<meta itemprop="description" content="Join your favourite conference from anywhere. Powered by Meet-Yard.">
+<meta itemprop="image" content="images/watermark.png?v=1">
+<link rel="icon" type="image/png" href="https://app.meet-yard.com/images/favicon.ico?v=1">
+
+    
+    <template id="welcome-page-additional-content-template"></template>
+
+    <template id="welcome-page-additional-card-template"></template>
+
+    <template id="settings-toolbar-additional-content-template"></template>
+
+  <style type="text/css">
+    body { background: #1B2638; }
+  </style><style type="text/css">
+    body { background: #1B2638; }
+  </style><style data-emotion="css-global" data-s=""></style></head>
+  <body class="welcome-page">
+    <noscript aria-hidden="true">
+        <div>JavaScript is disabled. </br>For this site to work you have to enable JavaScript.</div>
+    </noscript>
+    
+    <div id="react" role="main"><div class="sc-bwzfXH cLnhlo"><div class="welcome without-content with-footer" id="welcome_page"><div class="header"><div class="header-image"></div><div class="header-container"><div class="header-watermark-container"><div class="welcome-watermark"><div><a aria-label="Meet-Yard Logo, links to  Homepage" class="watermark leftwatermarknomargin" href="https://www.bodastage.com/" target="_new"><div class="watermark leftwatermarknomargin" style="background-image: url(&quot;images/watermark.svg&quot;); max-width: 140px; max-height: 70px; position: static;"></div></a></div></div></div><div class="welcome-page-settings"><div aria-disabled="false" aria-label="Toggle settings" class="toolbox-button" tabindex="0" role="button"><div><div class="toolbox-icon   "><div class="jitsi-icon jitsi-icon-default "><svg height="24" width="24" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" clip-rule="evenodd" d="M15.75 12a3.75 3.75 0 1 1-7.5 0 3.75 3.75 0 0 1 7.5 0Zm-1.5 0a2.25 2.25 0 1 1-4.5 0 2.25 2.25 0 0 1 4.5 0Z"></path><path fill-rule="evenodd" clip-rule="evenodd" d="M9.026 3.447c0-1.069.867-1.947 1.936-1.947h2.076c1.069 0 1.936.878 1.936 1.947 0 1.48 1.604 2.422 2.883 1.678.92-.536 2.1-.22 2.63.704l1.054 1.844c.531.927.214 2.109-.709 2.646-1.288.75-1.288 2.611 0 3.361.923.538 1.24 1.72.71 2.647l-1.056 1.844a1.918 1.918 0 0 1-2.63.704c-1.278-.744-2.882.198-2.882 1.677 0 1.07-.867 1.948-1.936 1.948h-2.076a1.946 1.946 0 0 1-1.936-1.948c0-1.479-1.604-2.421-2.883-1.677-.92.536-2.1.22-2.63-.704L2.46 16.327a1.945 1.945 0 0 1 .709-2.647c1.288-.75 1.288-2.61 0-3.36a1.945 1.945 0 0 1-.71-2.647l1.056-1.844a1.918 1.918 0 0 1 2.63-.704c1.278.744 2.882-.198 2.882-1.678ZM10.962 3h2.076c.229 0 .436.195.436.447 0 2.61 2.836 4.314 5.137 2.974a.418.418 0 0 1 .573.153l1.055 1.844a.445.445 0 0 1-.162.605c-2.281 1.33-2.281 4.625 0 5.954a.445.445 0 0 1 .162.605l-1.055 1.844a.418.418 0 0 1-.573.153c-2.301-1.34-5.137.363-5.137 2.973a.446.446 0 0 1-.436.448h-2.076a.446.446 0 0 1-.436-.448c0-2.61-2.836-4.313-5.138-2.973a.418.418 0 0 1-.572-.153L3.76 15.582a.445.445 0 0 1 .163-.605c2.281-1.33 2.281-4.625 0-5.954a.445.445 0 0 1-.163-.605l1.056-1.844a.418.418 0 0 1 .572-.153c2.302 1.34 5.138-.364 5.138-2.974 0-.252.207-.447.436-.447Z"></path></svg></div></div></div></div></div><h1 class="header-text-title">Meet-Yard</h1><span class="header-text-subtitle">Connecting lives, Top-level security. Lets catch up!</span><div id="enter_room"><div class="enter-room-input-container"><form><input aria-disabled="false" aria-label="Meeting name input" class="enter-room-input" id="enter_room_field" pattern="^[^?&amp;:&quot;&#39;%#]+$" placeholder="ConsciousHearingsCountMeanwhile" title="Meeting name should not contain any of these characters: ?, &amp;, :, &#39;, &quot;, %, #." type="text" value=""><div class="warning-without-link"></div></form></div><button aria-disabled="false" aria-label="Start" class="welcome-page-button" id="enter_room_button" tabindex="0" type="button">Start meeting</button></div></div></div><div class="welcome-cards-container"><div class="welcome-card-column"><div class="welcome-tabs welcome-card welcome-card--blue"><div class="tab-container"><div class="tab-content"><div aria-label="Recent" class="meetings-list" role="menu" tabindex="-1"><div aria-describedby="meetings-list-empty-description" aria-label="Recent" class="meetings-list-empty" role="region"><span class="description" id="meetings-list-empty-description">Your recent list is currently empty. Chat with your team and you will find all your recent meetings here.</span></div></div></div></div></div></div></div><footer class="welcome-footer"><div class="welcome-footer-centered"><div class="welcome-footer-padded"><div class="welcome-footer-row-block welcome-footer--row-1"><div class="welcome-footer-row-1-text">From Bodastage Solutions –Install mobile app and join a conference remotely.</div><a class="welcome-badge" href="https://app.meet-yard.com/#https://itunes.apple.com/us/app/meet-yard/id123"><img alt="Download mobile app for iOS" src="./Meet-Yard_files/app-store-badge.png"></a><a class="welcome-badge" href="https://app.meet-yard.com/#https://play.google.com/store/apps/details?id=org.bodastage"><img alt="Download mobile app for Android" src="./Meet-Yard_files/google-play-badge.png"></a><a class="welcome-badge" href="https://app.meet-yard.com/"><img alt="" src="https://app.meet-yard.com/"></a></div></div></div></footer></div></div><audio preload="auto" src="sounds/incomingMessage.mp3"></audio><audio preload="auto" src="sounds/e2eeOff.mp3"></audio><audio preload="auto" src="sounds/e2eeOn.mp3"></audio><audio preload="auto" src="sounds/asked-unmute.mp3"></audio><audio preload="auto" src="sounds/joined.mp3"></audio><audio preload="auto" src="sounds/left.mp3"></audio><audio preload="auto" src="sounds/knock.mp3"></audio><audio preload="auto" src="sounds/reactions-thumbs-up.mp3"></audio><audio preload="auto" src="sounds/reactions-thumbs-up.mp3"></audio><audio preload="auto" src="sounds/reactions-thumbs-up.mp3"></audio><audio preload="auto" src="sounds/reactions-applause.mp3"></audio><audio preload="auto" src="sounds/reactions-applause.mp3"></audio><audio preload="auto" src="sounds/reactions-applause.mp3"></audio><audio preload="auto" src="sounds/reactions-laughter.mp3"></audio><audio preload="auto" src="sounds/reactions-laughter.mp3"></audio><audio preload="auto" src="sounds/reactions-laughter.mp3"></audio><audio preload="auto" src="sounds/reactions-surprise.mp3"></audio><audio preload="auto" src="sounds/reactions-surprise.mp3"></audio><audio preload="auto" src="sounds/reactions-surprise.mp3"></audio><audio preload="auto" src="sounds/reactions-boo.mp3"></audio><audio preload="auto" src="sounds/reactions-boo.mp3"></audio><audio preload="auto" src="sounds/reactions-boo.mp3"></audio><audio preload="auto" src="sounds/reactions-crickets.mp3"></audio><audio preload="auto" src="sounds/reactions-crickets.mp3"></audio><audio preload="auto" src="sounds/reactions-crickets.mp3"></audio><audio preload="auto" src="sounds/reactions-raised-hand.mp3"></audio><audio preload="auto" src="sounds/liveStreamingOff.mp3"></audio><audio preload="auto" src="sounds/liveStreamingOn.mp3"></audio><audio preload="auto" src="sounds/recordingOff.mp3"></audio><audio preload="auto" src="sounds/recordingOn.mp3"></audio><audio preload="auto" src="sounds/rejected.mp3"></audio><audio preload="auto" src="sounds/rejected.mp3"></audio><audio loop="" preload="auto" src="sounds/outgoingRinging.mp3"></audio><audio preload="auto" src="sounds/outgoingStart.mp3"></audio><audio preload="auto" src="sounds/talkWhileMuted.mp3"></audio><audio preload="auto" src="sounds/noisyAudioInput.mp3"></audio><audio preload="auto" src="sounds/noAudioSignal.mp3"></audio><div class="sc-bwzfXH cLnhlo"></div></div>
+  
+
+</body></html>
